@@ -1,0 +1,397 @@
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 5%;
+}
+
+.leftSidebar {
+    flex-basis: 25%;
+    position: sticky;
+    top: 15%;
+    align-self: flex-start;
+}
+
+.rightSidebar {
+    flex-basis: 25%;
+    position: sticky;
+    top: 70px;
+    align-self: flex-start;
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    color: #626262;
+}
+
+.mainContent {
+    flex-basis: 47%;
+margin-top: 2rem;
+}
+
+.impLinks a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    color: #626262;
+    width: fit-content;
+}
+
+
+.impLinks a svg {
+    fill: #2ecc71;
+    width: 25px;
+        margin-right: 15px;
+  
+}
+.impLinks a:last-child {
+    color: #8be5b1;
+}
+
+.impLinks {
+    border-bottom: 1px solid #ccc;
+}
+
+.shortcutLinks a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    color: #626262;
+    width: fit-content;
+}
+
+.shortcutLinks a img {
+    width: 40px;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.shortcutLinks p {
+    margin: 25px 0;
+    color: #626262;
+    font-weight: 500;
+}
+
+.sidebarTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.rightSidebar h4 {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sidebarTitle a {
+    text-decoration: none;
+    color: #2ecc71;
+    font-size: 12px;
+}
+
+.event {
+    display: flex;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.leftEvent {
+    border-radius: 10px;
+    height: 65px;
+    width: 65px;
+    margin-right: 15px;
+    padding-top: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.event p {
+    font-size: 12px;
+}
+
+.event a {
+    font-size: 12px;
+    text-decoration: none;
+    color: #2ecc71;
+}
+
+.leftEvent span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #2ecc71;
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 0;
+}
+
+.sidebar-ads {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.onlineList {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.onlineList .online img {
+    width: 45px;
+    border-radius: 50%;
+}
+
+.onlineList .online {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.onlineList .online::after {
+    top: unset;
+    bottom: 5px;
+}
+
+.writePostContainer {
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    color: #626262;
+    margin-top: 70px;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+}
+
+.userProfile img {
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.userProfile p {
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #626262;
+}
+
+.userProfile small {
+    font-size: 12px;
+}
+
+.userProfile span {
+    font-size: 13px;
+    color: #626262;
+}
+
+.postInputConatiner {
+    padding-left: 55px;
+    padding-top: 20px;
+}
+
+.postInputConatiner textarea {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    resize: none;
+}
+
+.addPostLinks {
+    display: flex;
+    margin-top: 10px;
+}
+
+.addPostLinks a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: #626262;
+    margin-right: 30px;
+    font-size: 13px;
+}
+
+.addPostLinks a img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.postContainer {
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    color: #626262;
+    margin: 20px 0;
+}
+
+
+
+.postText {
+    color: #9a9a9a;
+    font-size: 15px;
+    margin: 15px 0;
+}
+
+.postText a {
+    color: #2ecc71;
+    text-decoration: none;
+}
+
+.postImg {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.postRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.activityIcons div img {
+    width: 18px;
+    margin-right: 10px;
+}
+
+.activityIcons div {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.postProfileIcon {
+    display: flex;
+    align-items: center;
+}
+
+.postProfileIcon img {
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.postRow a {
+    color: #9a9a9a;
+}
+
+.newPic {
+    height: 45px;
+    width: 45px;
+    background-position: center;
+}
+
+.loadMoreBtn {
+    display: block;
+    margin: auto;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #9a9a9a;
+    color: var(--textColor2);
+    /* background: transparent; */
+background: var(--pryColor);
+    border-radius: 4px;
+}
+
+
+
+.settings-menu {
+    position: absolute;
+    width: 90%;
+    max-width: 350px;
+    background: #fff;
+    box-shadow: 0 0 10px(0, 0, 0, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    top: 108%;
+    right: 2%;
+    max-height: 0;
+    transition: max-height 0.3s;
+}
+
+.settings-menu-height {
+    max-height: 450px;
+}
+
+.userProfile a {
+    font-size: 12px;
+    color: #2ecc71;
+    text-decoration: none;
+}
+
+.settings-menu-inner {
+    padding: 20px;
+}
+
+.settings-menu hr {
+    border: 0;
+    height: 1px;
+    background: #9a9a9a;
+    margin: 15px 0;
+}
+
+.settings-links {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.settings-links .settings-icon {
+    width: 38px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.settings-links a {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #626262;
+}
+
+
+/* ///......media query....../// */
+
+
+@media(min-width: 280px) and (max-width: 868px) {
+    /* .nav-right .search-box{
+       display: none;
+   } */
+
+
+    .left-sidebar,
+    .right-sidebar {
+        display: none;
+    }
+
+    .search-box {
+        width: 250px;
+    }
+
+    .mainContent {
+        flex-basis: 100%;
+    }
+
+}
+
+@media(min-width: 869px) and (max-width: 1200px) {
+
+    .left-sidebar,
+    .right-sidebar {
+        margin: 0 1rem;
+        font-size: 0.7srem;
+    }
+}

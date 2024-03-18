@@ -1,0 +1,55 @@
+.avatarContainer {
+    position: relative;
+}
+
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    right: -70px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    padding: 8px;
+    width: 150px;
+    border-radius: 4px;
+
+}
+
+/* .downArrow {
+    margin-left: 0.5rem;
+   
+} */
+
+.dropdownLink {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+    /* Adjust text color as needed */
+}
+
+.dropdownLink:hover {
+    background-color: #f0f0f0;
+    /* Optional: Highlight background color on hover */
+}
+
+/* Optional: Adjust styles for the button inside the dropdown */
+.dropdownContent button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    background-color: #e74c3c;
+    /* Adjust button background color as needed */
+    color: #fff;
+    /* Adjust button text color as needed */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dropdownContent button:hover {
+    background-color: #c0392b;
+    /* Optional: Highlight button background color on hover */
+}

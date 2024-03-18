@@ -1,0 +1,47 @@
+/* SearchBar.module.css */
+
+.SearchBarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: 35px;
+    border: none;
+}
+
+.Input {
+    flex: 1;
+    border: 1px solid grey;
+    outline: none;
+    padding: 10px;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+}
+
+.Location {
+    flex: 1;
+    border: 1px solid grey;
+    outline: none;
+    padding: 10px;
+    height: 100%;
+    border-left: none;
+}
+
+.Button {
+    background: var(--pryColor);
+    border: none;
+    border-radius: 0 10px 10px 0;
+    font-weight: 500;
+    height: 100%;
+    width: 3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    list-style: none;
+    border: 1px solid var(--pryColor);
+}
+
+.Button:hover {
+    background: green;
+    border: 1px solid green;
+}

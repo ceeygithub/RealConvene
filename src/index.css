@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,151 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* Set the sizing of an element to include it's border */
+}
+
+* {
+  margin: 0;
+  /* Set the default margin to 0 */
+  padding: 0;
+  /* Set the default padding to 0 */
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  /* Turn off numbered and unordered list decoration */
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+  /* Make the scrolling inside of any scrollable element smooth */
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  /* Makes link undelines look better */
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  /* Makes it responsive */
+  height: auto;
+  /* Makes it responsive */
+  vertical-align: middle;
+  /* Makes text next to inline images look better */
+  font-style: italic;
+  /* If the images don't load it makes the alt decription look better */
+  background-repeat: no-repeat;
+  /* The background repeat and size are there if you want to load a picture first like a backroung image that is worse quality while the better quality image loads */
+  background-size: cover;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  /* Makes these elements inherit fonts */
+}
+
+/* Turns off animation for people who don't want to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition: none;
+  }
+}
+
+body,
+html {
+  height: 100%;
+  /* Makes the body element full screen */
+  scroll-behavior: smooth;
+  /* Makes normal scrolling smooth */
+  background: #F7FAFC;
+}
+
+
+:root {
+  --bgColor: #E0E7FA;
+  --pryColor: #2ecc71;
+  --secColor: rgb(64, 123, 255);
+  --beigeColor: #dedee0;
+  --textColor: #1E121E;
+  --borderButtom: #a3a2a2;
+  --textColor2: white;
+  --warning: #D0353D;
+  --hoverColor: rgba(28, 28, 28, 0.484);
+  --navColor: rgb(195, 195, 195);
+
+}
+
+.darkTheme {
+  --bgColor: rgb(0, 0, 20);
+  --pryColor: rgb(1, 20, 60);
+  --secColor: rgb(64, 123, 255);
+  --beigeColor: rgb(36, 35, 35);
+  --textColor: white;
+  --borderButtom: #fdfdfd;
+  --textColor2: rgb(255, 255, 255);
+  --hoverColor: rgba(225, 225, 225, 0.659);
+  --navColor: rgb(76, 76, 76);
 }

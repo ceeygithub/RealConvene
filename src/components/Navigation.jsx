@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavCSS from '../styles/Navigation.module.css';
@@ -8,11 +10,8 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { FiMessageSquare } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext'; 
 
-const Navbar = () => {
-
-  const { isAdmin,login } = useAuth(); 
-
-
+const Navigation = () => {
+  const { isAdmin, isAuthenticated } = useAuth(); 
 
   const handleSearch = () => {
     // Implement your search logic here
@@ -25,7 +24,7 @@ const Navbar = () => {
         <Link to="/" className={NavCSS.navbarLogo}>
           <img src={logoImg} alt="" className={NavCSS.logoImg} />
         </Link>
-        {login() && (
+        {isAuthenticated() && (
           <>
             <SearchBar onChange={handleSearch} />
             <div className={NavCSS.navbarLinks}>
@@ -33,18 +32,16 @@ const Navbar = () => {
                 <FiMessageSquare />
                 Messages
               </Link>
-              <Link to="/explore" className={NavCSS.navbarLink}>
+              <Link to="/notifications" className={NavCSS.navbarLink}>
                 <IoMdNotificationsOutline />
                 Notifications
               </Link>
-              <DropdownAvatar
-                onCloseDropdown={() => {}}
-              />
+              <DropdownAvatar onCloseDropdown={() => {}} />
               {isAdmin() && <Link to="/create-meetup">Create Meetup</Link>}
             </div>
           </>
         )}
-        {!login() && (
+        {!isAuthenticated() && (
           <div className={NavCSS.navbarLinks}>
             <Link to="/signup" className={`${NavCSS.navbarLink} ${NavCSS.signup}`}>
               Sign Up
@@ -59,4 +56,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navigation;

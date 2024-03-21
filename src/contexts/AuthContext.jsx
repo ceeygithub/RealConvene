@@ -1,5 +1,10 @@
-import React, { useContext, useState } from "react";
-import { auth } from "../Firebase";
+
+
+import React, { useContext, useState, useEffect } from 'react';
+import { auth, db } from '../Firebase'; 
+
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
 
 const AuthContext = React.createContext();
 
@@ -9,44 +14,72 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const signup = async (email, password) => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+      setCurrentUser(userAuth);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+ 
+ const signup = async (email, password) => {
     try {
-      await auth.createUserWithEmailAndPassword(auth,email, password).then((userCredential=>{
-console.log(userCredential)
-      }));
+      const userCredential = await createUserWithEmailAndPassword(auth,email, password); // 
+      const user = userCredential.user;
+
+      // Create user profile document in Firestore
+      const userRef = db.doc('users', user.uid); // Corrected path to doc
+      await db.setDoc(userRef, { email }); // You can store additional user data here
+
+      console.log('User signed up successfully!');
+      return user;
     } catch (error) {
-      console.log(error)
-    }
-  };
-
-  const login = async (email, password) => {
-    try {
-    await auth.signInWithEmailAndPassword(auth,email, password).then((userCredential=>{
-console.log(userCredential)
-      }));
-    } catch (error) {
-      console.log(error)
-    }
-  };
-
-
-   const logout = async () => {
-    try {
-      // Clear user from local storage
-      localStorage.removeItem("currentUser");
-
-      // Sign out from Firebase
-      await auth.signOut();
-
-      // Clear current user state
-      setCurrentUser(null);
-    } catch (error) {
-      console.error("Error logging out:", error);
+      console.error('Error signing up:', error.message);
       throw error;
     }
   };
+  
+  
+  // const login = async (email, password) => {
+  //   try {
+  //     await signInWithEmailAndPassword(auth, email, password); 
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
+// 
 
+const login = async (email, password) => {
+  try {
+    // Sign in the user
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Retrieve user data from Firestore
+    const userRef = db.doc(db, 'users', user.uid);
+    const userSnapshot = await db.getDoc(userRef);
+    const userData = userSnapshot.data();
+
+    console.log('User logged in successfully:', userData);
+    
+    return user;
+  } catch (error) {
+    console.error('Error logging in:', error.message);
+    throw error;
+  }
+};
+
+  const logout = async () => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const resetPassword = async (email) => {
     try {
@@ -56,24 +89,8 @@ console.log(userCredential)
     }
   };
 
-  const updateEmail = async (email) => {
-    try {
-      await currentUser.updateEmail(email);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const updatePassword = async (password) => {
-    try {
-      await currentUser.updatePassword(password);
-    } catch (error) {
-      throw error;
-    }
-  };
-
   const isAdmin = () => {
-    return currentUser && currentUser.email === 'admin@example.com'; 
+    return currentUser && currentUser.email === 'admin@gmail.com';
   };
 
   const isRegularUser = () => {
@@ -81,21 +98,15 @@ console.log(userCredential)
   };
 
   const isAuthenticated = () => {
-    return !!currentUser; // Returns true if currentUser exists, otherwise false
+    return !!currentUser;
   };
-
-  auth.onAuthStateChanged(user => {
-    setCurrentUser(user);
-  });
 
   const value = {
     currentUser,
- login,
+    login,
     signup,
     logout,
     resetPassword,
-    updateEmail,
-    updatePassword,
     isAdmin,
     isRegularUser,
     isAuthenticated,
@@ -103,7 +114,7 @@ console.log(userCredential)
 
   return (
     <AuthContext.Provider value={value}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 }

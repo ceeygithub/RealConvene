@@ -8,12 +8,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore} from "firebase/firestore";
 
 const  firebaseApp = initializeApp({
-    apiKey: "AIzaSyBs0CwiQgNtLApTyu66ChV_EM-CLPelAxU",
-     authDomain: "convene-9c056.firebaseapp.com",
-     projectId: "convene-9c056",
-     storageBucket: "convene-9c056.appspot.com",
-     messagingSenderId: "92942534987",
-     appId: "1:92942534987:web:5dbb733667a5990d6fc0ce"
+  apiKey: "AIzaSyBKDNvyHdU8ytyOfmr4SQZHPFC1jOP9dYA",
+  authDomain: "myconveneapp.firebaseapp.com",
+  projectId: "myconveneapp",
+  storageBucket: "myconveneapp.appspot.com",
+  messagingSenderId: "957357671633",
+  appId: "1:957357671633:web:794cb1937b000f30aa71f0"
 })
 
 export const auth = getAuth(firebaseApp);

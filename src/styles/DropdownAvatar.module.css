@@ -58,8 +58,9 @@
  width: 4rem;
 }
 .avatarImg{
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 100%;
+    border: 1px solid var(--pryColor);
   
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { CiUser } from "react-icons/ci";
 import { PiLockKeyThin } from "react-icons/pi";
 import SigninSvg from '../assets/13245914_5186395.svg';
@@ -11,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { login, isAdmin, isRegularUser } = useAuth();
+  const { login, isAdmin } = useAuth();
   const [error, setError] = useState('');
 
   const validationSchema = Yup.object({
@@ -25,62 +24,40 @@ const SignIn = () => {
       password: '',
     },
     validationSchema,
+
     onSubmit: async (values) => {
       // try {
-      //   await login(values.email, values.password);
-      //   if (isRegularUser()) {
-      //     navigate('/userDashboard');
-      //   } else if (isAdmin()) {
-      //     navigate('/adminDashboard');
+      //   const userCredential = await login(values.email, values.password);
+       
+      //   if (userCredential) {
+      //     if (isAdmin()) {
+      //       navigate('/adminDashboard');
+      //     } else {
+      //       navigate('/userDashboard');
+      //     }
       //   } else {
-      //     setError('Invalid user type.');
+      //     setError('Login failed. Please check your information and try again.');
       //   }
       // } catch (error) {
       //   console.error('Error during login:', error);
       //   setError('Login failed. Please check your information and try again.');
       // }
 
-
-        try {
-        await login(values.email, values.password).then(
-   navigate('/userDashboard')
-        )
-      
-       
-    
-
-
-    //          try {
-    //     await login(values.email, values.password).then(()=>{
-    //    const isAdmin = true; 
-    // const isRegularUser = true;
-    //     if (isRegularUser()) {
-    //       navigate('/userDashboard');
-    //     } else if (isAdmin()) {
-    //       navigate('/adminDashboard');
-    //     } else {
-    //       setError('Invalid user type.');
-    //     }
-    // });
-
-
-    //           try {
-    //     await login(values.email, values.password).then(()=>{
-    
-    //     if (values.email === 'admin.gmail.com') {
-    //           navigate('/adminDashboard');
-    
-    //      } else {
-    //           navigate('/userDashboard');
-    //     }
-    // });
-  
-  
-      
-      } catch (error) {
-        console.error('Error during login:', error);
+       try {
+      const userCredential = await login(values.email, values.password);
+      if (userCredential) {
+        if (userCredential.role === 'admin') {
+          navigate('/adminDashboard');
+        } else {
+          navigate('/userDashboard');
+        }
+      } else {
         setError('Login failed. Please check your information and try again.');
       }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Login failed. Please check your information and try again.');
+    }
     },
   });
 
@@ -101,7 +78,7 @@ const SignIn = () => {
             </header>
             <form onSubmit={formik.handleSubmit}>
               <div className="inputContainer">
-                <label className="label" htmlFor="email">
+                <label htmlFor="email">
                   <CiUser className="labelIcon" alt="labelIcon" /><span>Email*</span>
                 </label>
                 <input
@@ -115,7 +92,7 @@ const SignIn = () => {
                 {formik.touched.email && formik.errors.email && <div className="error-message">{formik.errors.email}</div>}
               </div>
               <div className="inputContainer">
-                <label className="label" htmlFor="password">
+                <label htmlFor="password">
                   <PiLockKeyThin className="labelIcon" alt="Password Icon" />
                   <span>Password*</span>
                 </label>

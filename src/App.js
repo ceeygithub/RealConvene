@@ -9,28 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ResetPassword from './pages/PasswordReset';
-// import {  useAuth } from "./contexts/AuthContext"; 
 
-// // 
-// const ProtectedUserRoute = ({ element }) => {
-//   const { isAuthenticated, isAdmin } = useAuth();
-
-//   if (isAuthenticated() && !isAdmin()) {
-//     return element;
-//   } else {
-//     return <Navigate to="/" />;
-//   }
-// };
-
-// const ProtectedAdminRoute = ({ element }) => {
-//   const { isAuthenticated, isAdmin } = useAuth();
-
-//   if (isAuthenticated() && isAdmin()) {
-//     return element;
-//   } else {
-//     return <Navigate to="/" />;
-//   }
-// };
 
 function App() {
   return (
@@ -45,10 +24,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/userDashboard" element={<UserDashboard />} />
           <Route path="/adminDashboard" element={<AdminDashboard />} />
-
-        {/* <Route path="/userDashboard" element={<ProtectedUserRoute ><UserDashboard /></ProtectedUserRoute >} />
-        <Route path="/adminDashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} /> */}
-
         
           <Route path="*" element={<NotFound />} />
         </Routes>

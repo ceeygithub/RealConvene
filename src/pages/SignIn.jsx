@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { login, isAdmin } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState('');
 
   const validationSchema = Yup.object({
@@ -22,42 +22,46 @@ const SignIn = () => {
     initialValues: {
       email: '',
       password: '',
+      
     },
     validationSchema,
 
     onSubmit: async (values) => {
-      // try {
-      //   const userCredential = await login(values.email, values.password);
-       
-      //   if (userCredential) {
-      //     if (isAdmin()) {
-      //       navigate('/adminDashboard');
-      //     } else {
-      //       navigate('/userDashboard');
-      //     }
-      //   } else {
-      //     setError('Login failed. Please check your information and try again.');
-      //   }
-      // } catch (error) {
-      //   console.error('Error during login:', error);
-      //   setError('Login failed. Please check your information and try again.');
-      // }
+  
+    //    try {
+    //   const userCredential = await login(values.email, values.password, values.role);
+    //   if (userCredential) {
+    //     if (userCredential.role === 'admin') {
+    //       navigate('/adminDashboard');
+    //     } else {
+    //       navigate('/userDashboard');
+    //     }
+    //   } else {
+    //     setError('Login failed. Please check your information and try again.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error during login:', error);
+    //   setError('Login failed. Please check your information and try again.');
+    // }
 
-       try {
-      const userCredential = await login(values.email, values.password);
-      if (userCredential) {
-        if (userCredential.role === 'admin') {
+     try {
+        // Sign up the user
+        await login(values.email, values.password);
+        
+        // Log in the user to get the role
+        // const { role } = await login(values.email, values.password);
+        
+        // Redirect based on the role
+        if (values.email === 'admin@gmail.com') {
           navigate('/adminDashboard');
         } else {
           navigate('/userDashboard');
         }
-      } else {
-        setError('Login failed. Please check your information and try again.');
+      } catch (error) {
+        console.error('Error during signup:', error);
+        setError('Sign up failed. Please try again.');
       }
-    } catch (error) {
-      console.error('Error during login:', error);
-      setError('Login failed. Please check your information and try again.');
-    }
+    
     },
   });
 

@@ -86,12 +86,7 @@ const AdminDashboard = () => {
           </div>
            <hr />
           <ul>
-            {/* <li className={`active ${selectedMenu === 'admin' ? 'active' : ''}`}>
-              <Link to="#" className='link' onClick={() => handleMenuClick('admin')}>
-                <RiAdminFill />
-                <span className='admin-title'>ADMIN</span>
-              </Link>
-            </li> */}
+          
             <li className={selectedMenu === 'users' ? 'active' : ''}>
               <Link to="#" className='link' onClick={() => handleMenuClick('users')}>
                 <FaUsers />

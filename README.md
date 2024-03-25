@@ -1,70 +1,75 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Convene - Meetup Questions Hub
 
-## Available Scripts
+Convene is a platform that empowers meetup organizers by allowing users to crowdsource and prioritize questions for upcoming meetups. This repository contains the codebase for the Convene project.
 
-In the project directory, you can run:
+## Table of Contents
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **User Authentication:**
+   - User sign-up page.
+   - User sign-in page.
+   - Form validation for sign-up and sign-in.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Meetup Interaction:**
+   - Display upcoming meetups.
+   - Create a new meetup (admin).
+   - Delete a meetup (admin).
 
-### `npm test`
+3. **Question Interaction:**
+   - Users can post questions to a specific meetup.
+   - Upvote and downvote questions.
+   - Add comments to a question.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **User Profile:**
+   - Display user profile information.
+   - Include user's posted questions and commented questions.
+   - Top questions feed for upcoming meetups.
 
-### `npm run build`
+5. **Admin Actions:**
+   - Admin can create a meetup.
+   - Admin can delete a meetup.
+   - Optional: Admin can add images and tags to a meetup.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project is divided into two main challenges:
+1. **Challenge One: UI Templates**
+   - Located in the `UI` directory.
+   - UI templates built with  React.
+    -Form validation with formik and yup.
+   - Hosted on  Netlify.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Challenge Two: API Endpoints**
+   - Server-side code using Firebase.
+      - Server-side database using Firestore
+   - API endpoints created to power front-end pages.
+ 
 
-### `npm run eject`
+## Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Follow these steps to set up and run the Convene project locally:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/convene.git
+   cd convene
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Install dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### For UI templates (Challenge One)
+cd UI
+### Install dependencies (e.g., React)
+npm install
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Run the project
+### For UI templates
+npm start

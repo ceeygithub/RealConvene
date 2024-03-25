@@ -84,7 +84,7 @@ html {
 
 :root {
   --bgColor: #E0E7FA;
-  --pryColor: #2ecc71;
+  --pryColor: rgb(56, 197, 133);
   --secColor: rgb(64, 123, 255);
   --beigeColor: #dedee0;
   --textColor: #1E121E;

@@ -55,10 +55,7 @@ hr{
    text-decoration: none;
      }
 
-         .left-menu ul li .link:hover,
-         .left-menu ul li .link:hover span {
-             color: #fcfcfc;
-         }
+    
 
      .left-menu ul li .link span {
          width: 100%;
@@ -71,9 +68,30 @@ hr{
          transition: all 0.3s ease;
      }
 
-     .left-menu ul li.active .link span {
+     /* .left-menu ul li .active .link span {
          color: #fff;
-     }
+     } */
+                  /* .left-menu ul li .link:hover,
+                 .left-menu ul li .link:hover span {
+                     color: #fcfcfc;
+                 }
+           .left-menu ul li .link:active,
+           .left-menu ul li .link:active span {
+               color: #fcfcfc;
+           } */
+
+                   .left-menu ul li.active .link span,
+                   .left-menu ul li.active .link svg {
+                       color: #fff;
+                   }
+        
+                   /* Add styles for hover and active states of the link and its span */
+                   .left-menu ul li .link:hover,
+                   .left-menu ul li .link:hover span,
+                   .left-menu ul li .link:active,
+                   .left-menu ul li .link:active span {
+                       color: #fcfcfc;
+                   }
 
     .link:hover {
          text-decoration: none;
@@ -125,33 +143,11 @@ hr{
              display: none;
          }
 
- .left-menu ul li .link span {
-     display: none;
+.left-menu ul li .link span {
+    display: none;
+}
+ .left-menu ul li .link svg {
+     display: inline-block;
  }
-
      }
 
-     @media only screen and (min-width: 992px) {
-         .left-menu li.has-sub::after {
-             font-family: "Ionicons";
-             content: "\f3d3";
-             position: absolute;
-             top: 10px;
-             right: 10px;
-             cursor: pointer;
-             transform: rotate(0deg);
-             -webkit-transition: all 0.3s ease;
-             -o-transition: all 0.3s ease;
-             transition: all 0.3s ease;
-         }
-
-         .left-menu li.has-sub.rotate:after {
-             -webkit-transform: rotate(90deg);
-             -ms-transform: rotate(90deg);
-             -o-transform: rotate(90deg);
-             transform: rotate(90deg);
-         }
-
-       
-
-     }

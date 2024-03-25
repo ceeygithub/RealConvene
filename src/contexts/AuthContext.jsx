@@ -121,10 +121,6 @@ useEffect(() => {
   };
 
 
-// const isAdmin = () => {
-//   return admin === true && (user && user.email === 'admin@gmail.com');
-// };
-
 
   const isRegularUser = () => {
     return user && !isAdmin();
@@ -133,6 +129,23 @@ useEffect(() => {
   const isAuthenticated = () => {
     return !!user;
   };
+
+  // event creation
+  const createEventsCollection = async () => {
+  try {
+    // Create the "events" collection
+    await collection('events').addDoc({
+       title: '',
+            date: '',
+            location: '',
+            image: null,
+    });
+
+    console.log('Events collection created successfully!');
+  } catch (error) {
+    console.error('Error creating events collection:', error);
+  }
+};
 
   const value = {
     user,
@@ -143,6 +156,7 @@ useEffect(() => {
     isAdmin,
     isRegularUser,
     isAuthenticated,
+    createEventsCollection,
   };
   return (
     <AuthContext.Provider value={value}>

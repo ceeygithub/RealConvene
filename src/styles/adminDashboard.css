@@ -30,7 +30,7 @@ background: var(--pryColor);
     text-align: center;
     align-items: center;
     padding-top: 1rem;
-    margin-left: 5rem;
+    margin-left: 4.8rem;
 }
 hr{
     border: 1px solid var(--textColor);
@@ -67,18 +67,6 @@ hr{
          -o-transition: all 0.3s ease;
          transition: all 0.3s ease;
      }
-
-     /* .left-menu ul li .active .link span {
-         color: #fff;
-     } */
-                  /* .left-menu ul li .link:hover,
-                 .left-menu ul li .link:hover span {
-                     color: #fcfcfc;
-                 }
-           .left-menu ul li .link:active,
-           .left-menu ul li .link:active span {
-               color: #fcfcfc;
-           } */
 
                    .left-menu ul li.active .link span,
                    .left-menu ul li.active .link svg {

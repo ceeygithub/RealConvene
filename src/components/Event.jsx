@@ -14,11 +14,7 @@ const Event = () => {
         {/* media container */}
         <div className="card-media-object-container">
           <div className="card-media-object" style={{ backgroundImage: "url(https://s16.postimg.cc/x8m99xtgl/tyco_f.jpg)" }}></div>
-          {/* <ul className="card-media-object-social-list">
-            <li>
-              <img src="https://s13.postimg.cc/c5aoiq1w7/stock3_f.jpg" alt="" />
-            </li>
-          </ul> */}
+ 
         </div>
         {/* body container */}
         <div className="card-media-body">
@@ -41,10 +37,7 @@ const Event = () => {
               </span>
             </div>
           </div>
-          {/* <div className="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
-            <span className="card-media-body-supporting-bottom-text subtle">#Music #Performance</span>
-            <a href="#/" className="card-media-body-supporting-bottom-text card-media-link u-float-right">VIEW TICKETS</a>
-          </div> */}
+      
         </div>
       </div>
     </div>

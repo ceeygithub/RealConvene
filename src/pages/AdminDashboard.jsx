@@ -8,21 +8,30 @@ import { FaUsers } from "react-icons/fa";
 import { IoCreateOutline } from "react-icons/io5";
 import { MdOutlineEventSeat } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useAuth } from '../contexts/AuthContext';
+ import { Formik, Form, Field, ErrorMessage } from 'formik';
+ import * as Yup from 'yup';
 
 
 const AdminDashboard = () => {
+  const {createEventsCollection } = useAuth();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('admin');
 
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
+ 
 
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
+     setMenuOpen(false); 
   };
 
-  const renderContent = () => {
+   const eventSchema = Yup.object().shape({
+    title: Yup.string().required('Title is required'),
+    date: Yup.string().required('Date is required'),
+    location: Yup.string().required('Location is required'),
+    image: Yup.mixed().required('Image is required'),
+  });
+  const renderContent = (setFieldValue) => {
     switch (selectedMenu) {
       case 'users':
         return (
@@ -50,9 +59,58 @@ const AdminDashboard = () => {
         );
       case 'createMeetup':
         return (
-          <div>
-            {/* UI for creating meetup */}
-            CREATE MEET UP
+          <div className="form-container">
+             <Formik
+              initialValues={{
+              title: '',
+                date: '',
+                location: '',
+                image: null, 
+              }}
+              validationSchema={eventSchema}
+              onSubmit={async (values, { setSubmitting }) => {
+                try {
+                  await createEventsCollection(values); // Call the function to create event collection
+                  console.log('Event added to database:', values);
+                  // You can also handle success message or redirection here
+                } catch (error) {
+                  console.error('Error creating event:', error);
+                  // Handle error or set formik error message accordingly
+                }
+                setSubmitting(false);
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  {/* Form fields */}
+           
+ <Field type="text" name="title" placeholder="Event Title" />
+                  <ErrorMessage name="title" component="div" className="error-message" />
+
+                  <Field type="text" name="date" placeholder="Event Date" />
+                  <ErrorMessage name="date" component="div" className="error-message" />
+
+                  <Field type="text" name="location" placeholder="Event Location" />
+                  <ErrorMessage name="location" component="div" className="error-message" />
+
+                  {/* Image upload field */}
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={(event) => {
+                      setFieldValue("image", event.currentTarget.files[0]);
+                    }}
+                  />
+                  <ErrorMessage name="image" component="div" className="error-message" />
+
+
+                  {/* Submit button */}
+                  <button type="submit" disabled={isSubmitting}>
+                    Create Event
+                  </button>
+                </Form>
+              )}
+            </Formik>
           </div>
         );
       case 'settings':
@@ -125,3 +183,5 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+

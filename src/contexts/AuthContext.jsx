@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { auth, db } from '../Firebase'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
-// import { useNavigate, Link } from 'react-router-dom';
+
 
 const AuthContext = React.createContext();
 
@@ -12,10 +12,13 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  //  const navigate = useNavigate();
-  const [error, setError] = useState("");
+
+// eslint-disable-next-line no-unused-vars
+const [error, setError] = useState("");
+// eslint-disable-next-line no-unused-vars
+const [role, setRole] = useState('');
   const [user, setUser] = useState();
-    const [role, setRole] = useState(' ');
+
 
 useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

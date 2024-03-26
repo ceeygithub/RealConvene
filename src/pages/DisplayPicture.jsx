@@ -130,7 +130,7 @@ const handleUpload = async () => {
 
   return (
     <div className={DisplayPictureCSS.container}>
-      <h4>Upload your display image</h4>
+      <h4 className= {DisplayPictureCSS.heading}>Upload your display image</h4>
       <input type="file" accept="image/*" onChange={handleImageChange} />
       <button onClick={handleUpload} className={DisplayPictureCSS.uploadButton}>
         Upload

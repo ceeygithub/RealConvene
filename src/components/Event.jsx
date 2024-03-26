@@ -35,10 +35,10 @@ const Event = () => {
             <div className="card-media-body-top">
               <span className="subtle">{event.date}</span>
             </div>
-            <span className="card-media-body-heading">{event.title}</span>
+            <p className="card-media-body-heading">{event.title}</p>
             <div className="card-media-body-supporting-bottom">
               <span className="card-media-body-supporting-bottom-text subtle">{event.location}</span>
-              <span className="card-media-body-supporting-bottom-text subtle u-float-right">{event.price}</span>
+              {/* <span className="card-media-body-supporting-bottom-text subtle u-float-right">{event.price}</span> */}
               {/* Upvote and comment icons */}
               <div className="card-media-body-supporting-bottom-icons">
                 <span className="icon-with-count">

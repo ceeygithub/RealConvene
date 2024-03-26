@@ -19,7 +19,7 @@
 
 .subtle {
     color: #888;
-    font-size: 12px;
+    font-size: 1rem;
 }
 
 .card-media {
@@ -110,6 +110,11 @@
 .card-media-body-heading {
     display: block;
     margin-top: 10px;
+    font-size: 2rem;
+    text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+            max-width: 100%;
 }
 
 .card-media-body-supporting-bottom {
@@ -140,4 +145,5 @@ color: var(--pryColor);
 
 .card-media-body-supporting-bottom-text {
     display: inline-block;
+    font-size: 1rem;
 }

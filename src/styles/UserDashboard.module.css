@@ -4,12 +4,13 @@
     justify-content: space-between;
     padding: 13px 5%;
     position: relative;
+    /* height: 100vh; */
 }
 
 .leftSidebar {
-    flex-basis: 25%;
+    flex-basis: 20%;
     position: sticky;
-    top: 15%;
+    top: 20%;
     align-self: flex-start;
     margin-right: 1rem;
 }
@@ -17,7 +18,8 @@
 .rightSidebar {
     flex-basis: 25%;
     position: sticky;
-    top: 15%;
+    position: -webkit-sticky;
+    top:2rem;
     align-self: flex-start;
     /* background: #fff; */
     /* padding: 20px 0 20px 0; */
@@ -26,7 +28,7 @@
 }
 
 .mainContent {
-    flex-basis: 47%;
+    flex-basis: 40%;
 margin-top: 2rem;
 display: flex;
 flex-direction: column;
@@ -90,12 +92,12 @@ align-items: center;
     color: #2ecc71;
     font-size: 12px;
 }
-
+/* 
 .event {
     display: flex;
     font-size: 14px;
     margin-bottom: 20px;
-}
+} */
 
 
 .sidebar-ads {

@@ -8,6 +8,7 @@ import { FaUsers } from "react-icons/fa";
 import { IoCreateOutline } from "react-icons/io5";
 import { MdOutlineEventSeat } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
 import { useAuth } from '../contexts/AuthContext';
  import { Formik, Form, Field, ErrorMessage } from 'formik';
  import * as Yup from 'yup';
@@ -125,6 +126,13 @@ const AdminDashboard = () => {
             </Formik>
           </div>
         );
+          case 'deletemeetup':
+        return (
+          <div>
+            {/* UI for settings */}
+        Delete meetup
+          </div>
+        );
       case 'settings':
         return (
           <div>
@@ -175,6 +183,14 @@ const AdminDashboard = () => {
                 <span>Events</span>
               </Link>
             </li>
+            
+   <li className={selectedMenu === 'deletemeetup' ? 'active' : ''}>
+              <Link to="#" className='link' onClick={() => handleMenuClick('deletemeetup')}>
+  <MdDeleteOutline />
+                <span>Delete Event </span>
+              </Link>
+            </li>
+            
 
      <li className={selectedMenu === 'settings' ? 'active' : ''}>
               <Link to="#" className='link' onClick={() => handleMenuClick('settings')}>

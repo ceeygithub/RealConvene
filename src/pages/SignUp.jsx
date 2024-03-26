@@ -27,7 +27,7 @@ const SignUp = () => {
     onSubmit: async (values) => {
       try {
         await signup(values.email, values.password).then(
-  navigate('/profile')
+  navigate('/displaypicture')
         );
       
       } catch (error) {

@@ -36,7 +36,7 @@ const Navigation = () => {
                 <IoMdNotificationsOutline />
                 Notifications
               </Link>
-                     {/* {isAdmin() && <Link to="/create-meetup" className={NavCSS.meetup}>Create Meetup</Link>} */}
+                 
               <DropdownAvatar onCloseDropdown={() => {}} />
        
             </div>

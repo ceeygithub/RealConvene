@@ -1,0 +1,27 @@
+.container {
+    /* width: 60%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem auto;
+}
+
+.uploadButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+        background-color: var(--pryColor);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.uploadButton:hover {
+    background-color: #27ae60;
+}
+
+.progressBar {
+    margin-top: 20px;
+    width: 100%;
+}

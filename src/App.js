@@ -9,6 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ResetPassword from './pages/PasswordReset';
+import DisplayPicture from './pages/DisplayPicture';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/displaypicture" element={<DisplayPicture />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/userDashboard" element={<UserDashboard />} />
           <Route path="/adminDashboard" element={<AdminDashboard />} />

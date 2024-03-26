@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AvatarCss from '../styles/DropdownAvatar.module.css';
@@ -8,8 +9,27 @@ import { useAuth } from '../contexts/AuthContext';
 
 const DropdownAvatar = ({ onCloseDropdown }) => {
   const navigate = useNavigate();
-  const { logout, isAdmin } = useAuth();
+  const { logout, isAdmin, user } = useAuth(); // Access the user object from the AuthContext
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userAvatar, setUserAvatar] = useState(null); // State to store the user's avatar URL
+// useEffect(() => {
+//   // Log the user's avatar URL
+//   console.log('User Avatar URL:', userAvatar);
+
+//   // Fetch the user's avatar URL from the user object
+//   if (user && user.photoURL) {
+//     setUserAvatar(user.photoURL);
+//   }
+// }, [user]);
+useEffect(() => {
+  // Fetch the user's avatar URL from the user object
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  if (user && user.photoURL) {
+    setUserAvatar(user.photoURL);
+  }
+}, [user]); // No longer includes userAvatar in the dependency array
+
+
 
   const handleAvatarClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -33,7 +53,11 @@ const DropdownAvatar = ({ onCloseDropdown }) => {
   return (
     <div className={AvatarCss.avatarContainer} onClick={handleAvatarClick}>
       <div className={AvatarCss.avatarContainer}>
-        <img src='https://images.pexels.com/photos/4754648/pexels-photo-4754648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt="Avatar" className={AvatarCss.avatarImg} />
+        {userAvatar ? (
+          <img src={userAvatar} alt="Avatar" className={AvatarCss.avatarImg} />
+        ) : (
+          <img src='https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt="Default Avatar" className={AvatarCss.avatarImg} />
+        )}
         <MdKeyboardArrowDown />
       </div>
 
@@ -42,7 +66,7 @@ const DropdownAvatar = ({ onCloseDropdown }) => {
           <Link to="/userDashboard" className={AvatarCss.dropdownLink} onClick={closeDropdown}>
             Profile
           </Link>
-           <Link to="/" className={AvatarCss.dropdownLink} onClick={closeDropdown}>
+          <Link to="/" className={AvatarCss.dropdownLink} onClick={closeDropdown}>
             Home
           </Link>
           {/* Render Interests link only for regular users */}
@@ -57,7 +81,7 @@ const DropdownAvatar = ({ onCloseDropdown }) => {
               Create Meetup
             </Link>
           )}
-         
+
           <Link to="/notifications" className={AvatarCss.dropdownLink} onClick={closeDropdown}>
             Notifications
           </Link>

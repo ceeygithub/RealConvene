@@ -1,7 +1,7 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import { auth, db,storage } from '../Firebase'; 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updateProfile } from 'firebase/auth';
 import { doc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
 import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -47,31 +47,33 @@ useEffect(() => {
     return () => unsubscribe();
   }, []);
 
+
+
   const signup = async (email, password) => {
-    setError(""); // Clear any previous error messages
+  setError(""); // Clear any previous error messages
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-      
-      // Add user data to Firestore
-      const userRef = await addDoc(collection(db, 'users'), {
-        userId: userCredential.user.uid,
-        email: email,
-        password: password,
-        role:'regular',
-      });
+    // Set up profileData object
+    const profileData = {
+      userId: userCredential.user.uid,
+      email: email,
+      role: 'regular',
+    };
 
-      console.log("Document written with ID:", userRef.id);
+    // Add user data to Firestore
+    const userRef = await addDoc(collection(db, 'users'), profileData);
 
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        setError("Email already in use. Please try another email.");
-      } else {
-        setError(error.message);
-      }
+    console.log("Document written with ID:", userRef.id);
+  } catch (error) {
+    if (error.code === "auth/email-already-in-use") {
+      setError("Email already in use. Please try another email.");
+    } else {
+      setError(error.message);
     }
-  };
+  }
+};
 
  const login = async (email, password) => {
   setError(""); // Clear any previous error messages
@@ -102,7 +104,53 @@ useEffect(() => {
   }
 };
 
-  
+
+const updateUserProfile = async (profileData, image, setUploadProgress) => {
+  try {
+    if (!image) {
+      console.error('Image is not selected.');
+      return;
+    }
+
+    // Update user profile data
+    await updateProfile(user, profileData);
+
+    // Fetch the updated user data
+    const updatedUser = auth.currentUser;
+
+    // Upload image to Firebase Storage
+    const storageRef = ref(storage, `userImages/${user.uid}/${image.name}`);
+    const uploadTask = uploadBytes(storageRef, image);
+
+    // Observe state changes, errors, and completion of the upload.
+    uploadTask
+      .then(snapshot => {
+        // Get the upload progress
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+        console.log('Upload is ' + progress + '% done');
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
+
+    // Upload completed successfully, get the download URL of the image
+    const snapshot = await uploadTask;
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    
+    // Update user's profile data with the image URL
+    await updateProfile(user, { ...profileData, photoURL: downloadURL });
+
+    // Update user state
+    setUser(auth.currentUser);
+    console.log('User profile and display picture updated successfully:', updatedUser);
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    throw error;
+  }
+};
+
+
   const logout = async () => {
     try {
       await auth.signOut();
@@ -185,7 +233,8 @@ const getEvents = async () => {
     isRegularUser,
     isAuthenticated,
     createEventsCollection,
-getEvents 
+getEvents ,
+updateUserProfile ,
   };
   return (
     <AuthContext.Provider value={value}>

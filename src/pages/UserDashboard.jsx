@@ -1,7 +1,6 @@
 
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom'; 
 import UserDashboardCss from '../styles/UserDashboard.module.css';
 import  '../styles/CalendarOverride.css';
@@ -10,10 +9,55 @@ import { MdPeopleAlt } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import Event from '../components/Event';
 import Calendar from 'react-calendar';
-
+import { useAuth } from '../contexts/AuthContext';
 
 const UserDashboard = () => {
   const [date, setDate] = useState(new Date());
+  // eslint-disable-next-line no-unused-vars
+  const [events, setEvents] = useState([]);
+  const [page, setPage] = useState(1); // Current page
+  const [totalPages, setTotalPages] = useState(1); // Define totalPages here
+  const { getEvents } = useAuth(); 
+
+  const fetchEvents = useCallback(async () => {
+    try {
+      // Fetch events data using getEvents function
+      const events = await getEvents();
+      console.log('Events:', events);
+      // Assuming your API returns the total number of pages, set the totalPages state
+      setTotalPages(events.totalPages);
+      // Update events state with the fetched data
+      setEvents(prevEvents => [...prevEvents, ...events]);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  }, [getEvents]);
+
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      // User has scrolled to the bottom
+      if (page < totalPages) {
+        // Fetch next page of events
+        setPage(prevPage => prevPage + 1);
+      }
+    }
+  }, [page, totalPages]);
+
+  useEffect(() => {
+    const fetchDataAndScrollHandler = async () => {
+      await fetchEvents();
+      window.addEventListener('scroll', handleScroll);
+    };
+
+    fetchDataAndScrollHandler();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [fetchEvents, handleScroll]);
   return (
     <>
       <div className={UserDashboardCss.container}> 
@@ -22,7 +66,6 @@ const UserDashboard = () => {
             <Link to="#"><BiNews  />Latest Events</Link>
             <Link to="#"><MdPeopleAlt />Friends</Link>
             <Link to="#"><IoIosPeople />Groups</Link>
- 
           </div>
           <div className={UserDashboardCss.shortcutLinks}> 
             <p>Your Interests</p>
@@ -34,44 +77,23 @@ const UserDashboard = () => {
         </div>
         <div className={UserDashboardCss.mainContent}>
           <Event />
-          <Event /> 
-          <Event />
-          <Event />
-          <Event />
-          <Event /> 
-          <Event />
-          <Event />
-          <Event />
-          <Event /> 
-          <Event />
-          <Event />
-          <button type="button" className={UserDashboardCss.loadMoreBtn}>Load More</button>
+          <button type="button" className={UserDashboardCss.loadMoreBtn} onClick={handleScroll}>
+            Load More
+          </button>
         </div>
         <div className={UserDashboardCss.rightSidebar}>
           <div className={UserDashboardCss.sidebarTitle}>
-            <h4 >
-              Today
-            </h4>
+            <h4>Today</h4>
           </div>
-         <Calendar onChange={setDate} value={date} />
-           
-      
+          <Calendar onChange={setDate} value={date} />
           <div className={UserDashboardCss.sidebarTitle}>
-            <h4>
-              Advertisement
-            </h4>
-            <Link to="#">
-              Close
-            </Link>
+            <h4>Advertisement</h4>
+            <Link to="#">Close</Link>
           </div>
           <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/advertisement.png?raw=true" alt="advt" className={UserDashboardCss.sidebarAds} />
           <div className={UserDashboardCss.sidebarTitle}>
-            <h4>
-              Conversation
-            </h4>
-            <Link to="#">
-              Hide Chat
-            </Link>
+            <h4>Conversation</h4>
+            <Link to="#">Hide Chat</Link>
           </div>
           <div className={UserDashboardCss.onlineList}>
             <div className={UserDashboardCss.online}>
@@ -98,3 +120,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+

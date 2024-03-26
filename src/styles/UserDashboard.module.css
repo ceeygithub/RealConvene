@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 13px 5%;
+    position: relative;
 }
 
 .leftSidebar {
@@ -16,17 +17,22 @@
 .rightSidebar {
     flex-basis: 25%;
     position: sticky;
-    top: 70px;
+    top: 15%;
     align-self: flex-start;
     /* background: #fff; */
-    padding: 20px 0 20px 0;
-    border-radius: 4px;
-    color: #626262;
+    /* padding: 20px 0 20px 0; */
+    /* border-radius: 4px; */
+    /* color: #626262; */
 }
 
 .mainContent {
     flex-basis: 47%;
 margin-top: 2rem;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
 }
 
 .impLinks a {
@@ -69,8 +75,8 @@ margin-top: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 18px;
     margin-left: 0.5rem;
+    padding-top: 4rem;
 }
 
 .rightSidebar h4 {
@@ -121,6 +127,7 @@ margin-top: 2rem;
 }
 
 .loadMoreBtn {
+    width: 30%;
     padding: 10px 50px;
     font-size: 1em;
     background-color: #38C585;

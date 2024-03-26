@@ -68,47 +68,59 @@ const AdminDashboard = () => {
                 image: null, 
               }}
               validationSchema={eventSchema}
-              onSubmit={async (values, { setSubmitting }) => {
+              onSubmit={async (values, { setSubmitting , resetForm }) => {
                 try {
                   await createEventsCollection(values); // Call the function to create event collection
                   console.log('Event added to database:', values);
                   // You can also handle success message or redirection here
+                   resetForm();
+                      values.image = null;
                 } catch (error) {
                   console.error('Error creating event:', error);
                   // Handle error or set formik error message accordingly
                 }
+                //  values.image = null;
                 setSubmitting(false);
               }}
             >
-              {({ isSubmitting }) => (
-                <Form>
-                  {/* Form fields */}
-           
- <Field type="text" name="title" placeholder="Event Title" />
-                  <ErrorMessage name="title" component="div" className="error-message" />
+              {({ isSubmitting , setFieldValue  }) => (
 
-                  <Field type="text" name="date" placeholder="Event Date" />
-                  <ErrorMessage name="date" component="div" className="error-message" />
+<Form className="event-form">
+  {/* Form fields */}
+  <div className="form-group">
+    <Field type="text" name="title" placeholder="Event Title" className="form-control" />
+    <ErrorMessage name="title" component="div" className="error-message" />
+  </div>
 
-                  <Field type="text" name="location" placeholder="Event Location" />
-                  <ErrorMessage name="location" component="div" className="error-message" />
+  <div className="form-group">
+    <Field type="text" name="date" placeholder="Event Date" className="form-control" />
+    <ErrorMessage name="date" component="div" className="error-message" />
+  </div>
 
-                  {/* Image upload field */}
-                  <input
-                    type="file"
-                    name="image"
-                    onChange={(event) => {
-                      setFieldValue("image", event.currentTarget.files[0]);
-                    }}
-                  />
-                  <ErrorMessage name="image" component="div" className="error-message" />
+  <div className="form-group">
+    <Field type="text" name="location" placeholder="Event Location" className="form-control" />
+    <ErrorMessage name="location" component="div" className="error-message" />
+  </div>
 
+  {/* Image upload field */}
+  <div className="form-group">
+    <input
+      type="file"
+      name="image"
+      onChange={(event) => {
+        setFieldValue("image", event.currentTarget.files[0]);
+      }}
+      className="file-input"
+    />
+    <ErrorMessage name="image" component="div" className="error-message" />
+  </div>
 
-                  {/* Submit button */}
-                  <button type="submit" disabled={isSubmitting}>
-                    Create Event
-                  </button>
-                </Form>
+  {/* Submit button */}
+  <button type="submit" disabled={isSubmitting} className="submit-button">
+    Create Event
+  </button>
+</Form>
+
               )}
             </Formik>
           </div>

@@ -1,8 +1,9 @@
 
 import React, { useContext, useState, useEffect } from 'react';
-import { auth, db } from '../Firebase'; 
+import { auth, db,storage } from '../Firebase'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, collection, addDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
+import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 
 const AuthContext = React.createContext();
@@ -133,22 +134,46 @@ useEffect(() => {
     return !!user;
   };
 
-  // event creation
-  const createEventsCollection = async () => {
+// events
+const createEventsCollection = async (values) => {
   try {
-    // Create the "events" collection
-    await collection('events').addDoc({
-       title: '',
-            date: '',
-            location: '',
-            image: null,
+    // Upload the image file to the "eventsImage" folder in Firebase Storage
+    const imageRef = ref(storage, `eventsImage/${values.image.name}`);
+    await uploadBytes(imageRef, values.image);
+
+    // Get the download URL of the uploaded image
+    const imageUrl = await getDownloadURL(imageRef);
+
+    // Provide the path to the "events" collection
+    const eventsCollectionRef = collection(db, 'events');
+    
+    // Add a document to the "events" collection with the provided values
+    await addDoc(eventsCollectionRef, {
+      title: values.title || '',
+      date: values.date || '',
+      location: values.location || '',
+      imageUrl: imageUrl || '', // Store the URL of the uploaded image
     });
 
-    console.log('Events collection created successfully!');
+    console.log('Event added to the "events" collection:', values);
   } catch (error) {
-    console.error('Error creating events collection:', error);
+    console.error('Error creating event:', error);
+    throw error; // Re-throw the error to handle it in the calling function if necessary
   }
 };
+const getEvents = async () => {
+    try {
+      const eventsSnapshot = await getDocs(collection(db, 'events'));
+      const events = eventsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+   
+
+      return events;
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      throw error;
+    }
+  };
+
 
   const value = {
     user,
@@ -160,6 +185,7 @@ useEffect(() => {
     isRegularUser,
     isAuthenticated,
     createEventsCollection,
+getEvents 
   };
   return (
     <AuthContext.Provider value={value}>

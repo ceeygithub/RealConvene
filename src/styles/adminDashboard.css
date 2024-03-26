@@ -139,3 +139,52 @@ hr{
  }
      }
 
+
+
+/* form styles */
+.event-form {
+    width: 100%;
+    max-width: 400px;
+padding-top: 10rem;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.file-input {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: var(--pryColor);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.submit-button:hover {
+    background-color: #27ae60;
+}

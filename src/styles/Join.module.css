@@ -1,27 +1,36 @@
+/* Join.module.css */
+
 .container {
-    background-color: var(--bgColor
-    );
+    background-color: var(--bgColor);
     color: var(--textColor);
     padding: 20px 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-/* width: 100%; */
-
 }
 
 .left {
-    width: 40%;
-padding-right: 40px;
+    width: 100%;
+    max-width: 600px;
+    /* Limit the width to prevent overflow on small screens */
+    padding: 0 20px;
+    text-align: center;
 }
-img{
-    width: 400px;
 
+img {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    /* Add some spacing between the text and image */
 }
+
 .joinBtn {
-    padding: 10px 50px;
+    margin-top: 20px;
+    /* Add some spacing between the text and button */
+    padding: 10px 30px;
     font-size: 1em;
-    background-color:var(--pryColor);
+    background-color: var(--pryColor);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -31,4 +40,21 @@ img{
 
 .joinBtn:hover {
     background-color: #27ae60;
+}
+
+/* Responsive Styles */
+@media screen and (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
+
+    .left {
+        width: 40%;
+        padding-right: 40px;
+        text-align: left;
+    }
+
+    img {
+        margin-top: 0;
+    }
 }

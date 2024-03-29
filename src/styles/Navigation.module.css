@@ -134,7 +134,9 @@ margin-right: 10px;
     font-weight: bold;
     transition: color 0.3s ease-in-out;
 }
-
+.authLinks{
+    display: flex;
+}
 .navbarLink:hover {
     color: #017e03;
 }

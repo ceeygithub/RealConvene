@@ -89,7 +89,7 @@ const Navigation = () => {
         </Link>
         <div className={NavCSS.mobileMenuIcon} onClick={() => setShowMenu(!showMenu)}>
           <IoIosMenu />
-        </div>
+        </div >
         <div className={`${NavCSS.navbarLinks} ${showMenu ? NavCSS.showMenu : ''}`}>
           {isAuthenticated() && (
             <>

@@ -85,14 +85,15 @@ html {
 :root {
   --bgColor: #E0E7FA;
   --pryColor: rgb(56, 197, 133);
+    --hoverColor: rgb(32, 165, 105);
   --secColor: rgb(64, 123, 255);
   --beigeColor: #dedee0;
   --textColor: #1E121E;
   --borderButtom: #a3a2a2;
   --textColor2: white;
   --warning: #D0353D;
-  --hoverColor: rgba(28, 28, 28, 0.484);
   --navColor: rgb(195, 195, 195);
+    --transition: transition: all 0.3s;
 
 }
 

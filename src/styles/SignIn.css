@@ -1,7 +1,7 @@
-* {
+/* * {
     margin: 0px;
     font-family: Rubik;
-}
+} */
 
 .LoginPageContainer {
     height: 100vh;
@@ -66,6 +66,7 @@
 .LoginPageInnerContainer .LoginFormContainer .inputContainer {
     color: #3f3f45;
     margin: 20px 0px;
+    position: relative;
 }
 
 .LoginPageInnerContainer .LoginFormContainer .inputContainer .label {
@@ -199,16 +200,24 @@ b:hover {
 
 }
 
-.LoginLogo {
+/* .LoginLogo {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
-}
 
+} */
+/* 
 .logoImg {
     width: 80px;
-}
+} */
 
 .error-message {
     color: rgba(255, 0, 0, 0.721);
+}
+
+
+.eyeicon {
+    position: absolute;
+    top: 74%;
+    right: 40px;
+    transform: translateY(-50%);
 }

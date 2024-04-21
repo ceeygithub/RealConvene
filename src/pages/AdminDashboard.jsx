@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/adminDashboard.css';
-import { RiAdminFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { IoCreateOutline } from "react-icons/io5";
 import { MdOutlineEventSeat } from "react-icons/md";
@@ -158,13 +157,8 @@ const AdminDashboard = () => {
     <div>
       <div className={`left-menu ${isMenuOpen ? 'small-left-menu' : ''}`}>
         <div className="left-menu">
-          <div className='adminTitle'>
-   <RiAdminFill />
-          <h4>ADMIN</h4>
-          </div>
-           <hr />
+     
           <ul>
-          
             <li className={selectedMenu === 'users' ? 'active' : ''}>
               <Link to="#" className='link' onClick={() => handleMenuClick('users')}>
                 <FaUsers />
@@ -198,7 +192,7 @@ const AdminDashboard = () => {
                 <span>Settings</span>
               </Link>
             </li>
-            {/* Add menu items for settings, report, and events */}
+ 
           </ul>
         </div>
       </div>

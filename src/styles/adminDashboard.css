@@ -49,12 +49,12 @@ hr{
         color: var(--textColor);
          width: 100%;
          display: inline-block;
-         width: 400px;
+         width: 300px;
          height: 37px;
          position: relative;
    text-decoration: none;
+   padding-left: 25px;
      }
-
     
 
      .left-menu ul li .link span {
@@ -79,6 +79,8 @@ hr{
                    .left-menu ul li .link:active,
                    .left-menu ul li .link:active span {
                        color: #fcfcfc;
+                       background: #0f7102;
+                       
                    }
 
     .link:hover {
@@ -117,7 +119,7 @@ hr{
          font-size: 18px;
      }
 
-     @media only screen and (max-width: 992px) {
+     @media only screen and (max-width:767px) {
 
          .left-menu {
              width: 60px;
@@ -135,8 +137,11 @@ hr{
     display: none;
 }
  .left-menu ul li .link svg {
-     display: inline-block;
+    position: absolute;
+        left: -20%;
+        font-size: 2rem;
  }
+
      }
 
 
@@ -145,7 +150,7 @@ hr{
 .event-form {
     width: 100%;
     max-width: 400px;
-padding-top: 10rem;
+padding-top: 5rem;
     margin: auto;
 }
 

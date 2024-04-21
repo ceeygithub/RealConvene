@@ -7,11 +7,13 @@ import { PiLockKeyThin } from "react-icons/pi";
 import SigninSvg from '../assets/13245914_5186395.svg';
 import '../styles/SignIn.css';
 import { useAuth } from '../contexts/AuthContext';
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [error, setError] = useState('');
+   const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -68,7 +70,9 @@ const SignIn = () => {
   const handleReset = () => {
     navigate('/ResetPassword');
   };
-
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
   return (
     <div className="LoginPageContainer">
       <div className="LoginPageInnerContainer">
@@ -100,15 +104,22 @@ const SignIn = () => {
                   <PiLockKeyThin className="labelIcon" alt="Password Icon" />
                   <span>Password*</span>
                 </label>
+         
                 <input
-                  type="password"
-                  className="input"
-                  id="password"
-                  name="password"
-                  placeholder="Enter your Password"
-                  {...formik.getFieldProps('password')}
-                  required
-                />
+  type={showPassword ? "text" : "password"}
+  className="input"
+  id="password"
+  name="password"
+  placeholder="Enter your Password"
+  {...formik.getFieldProps('password')}
+  required
+/>
+
+                  {showPassword ? (
+                     <FaRegEye className="eyeicon" alt="Show Password Icon" onClick={togglePasswordVisibility} />
+                  ) : (
+                     <FaRegEyeSlash className="eyeicon" alt="Hide Password Icon" onClick={togglePasswordVisibility} />
+                  )}
                 {formik.touched.password && formik.errors.password && <div className="error-message">{formik.errors.password}</div>}
               </div>
               {error && <div className="error-message">{error}</div>}

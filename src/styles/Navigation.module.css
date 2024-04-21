@@ -1,92 +1,4 @@
-/* 
-.navbar {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 75px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    z-index: 999;
 
-}
-
-.navbarContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 0.5rem;
-    font-size: 1rem;
-}
-
-.logoImg {
-    width: 8rem;
-    height: auto;
-
-}
-
-.navbarLinks {
-    display: flex;
-    align-items: center;
-}
-
-.navbarLink {
-    display: flex;
-    flex-direction: column;
-    margin-right: 10px;
-    color: #333;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbarLink:hover {
-    color: #017e03;
-}
-
-.signin {
-    width: 100%;
-    padding: 10px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: #38C585;
-    border: 0px;
-    outline: 0px;
-    cursor: pointer;
-    text-align: center;
-
-}
-
-.signup {
-    width: 200px;
-    padding: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    border: 0px;
-    outline: 0px;
-}
-.meetup{
-    width: 5rem;
-        padding: 10px;
-        border-radius: 50px;
-        font-weight: bold;
-        color: white;
-        background-color: #38C585;
-        border: 0px;
-        outline: 0px;
-        cursor: pointer;
-        text-align: center;
-text-decoration: none;
-margin-right: 10px;
-} */
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -105,24 +17,42 @@ margin-right: 10px;
     margin: 0 auto;
     padding-top: 0.5rem;
     font-size: 1rem;
-}
-
-.logoImg {
-    width: 8rem;
-    height: auto;
 }
 
 .mobileMenuIcon {
     display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
+   
 }
 
 .navbarLinks {
     display: flex;
     align-items: center;
+    /* width: 400px;
+    justify-content: space-between; */
+}
+.adminMessage{
+    font-size: 1.5rem;
+    padding-right: 400px;
+}
+.nav-title {
+    padding: 0;
+    margin-right: auto;
+    position: relative;
+    width: 200px;
+
 }
 
+.logoImg{
+width: 150px;
+    height: auto;
+}
+.adminLogo {
+    position: absolute;
+    left: 6%;
+}
+.leftAlign{
+    justify-content: right;
+}
 .navbarLink {
     display: flex;
     flex-direction: column;
@@ -145,7 +75,7 @@ margin-right: 10px;
     width: 100%;
     padding: 10px;
     border-radius: 20px;
-    font-weight: bold;
+    font-size: 1.5rem;
     color: white;
     background-color: #38C585;
     border: 0px;
@@ -156,6 +86,7 @@ margin-right: 10px;
 
 .signup {
     width: 200px;
+        font-size: 1.5rem;
     padding: 10px;
     font-weight: bold;
     cursor: pointer;
@@ -164,26 +95,11 @@ margin-right: 10px;
     outline: 0px;
 }
 
-.meetup {
-    width: 5rem;
-    padding: 10px;
-    border-radius: 50px;
-    font-weight: bold;
-    color: white;
-    background-color: #38C585;
-    border: 0px;
-    outline: 0px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    margin-right: 10px;
-}
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
     .navbarLinks {
         display: none;
-        flex-direction: column;
         position: absolute;
         top: 75px;
         left: 0;
@@ -192,6 +108,7 @@ margin-right: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         z-index: 1000;
+
     }
 
     .navbarLink {
@@ -200,10 +117,20 @@ margin-right: 10px;
     }
 
     .mobileMenuIcon {
+        padding-top: 10px;
         display: block;
+        color:#38C585 ;
+        font-size: 2.5rem;
+        cursor: pointer;
     }
 
     .showMenu {
         display: flex;
+    flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+                  .adminMessage {
+                      padding-right: 0;
+                  }
 }

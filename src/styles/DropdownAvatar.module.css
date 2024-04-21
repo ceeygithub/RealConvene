@@ -4,7 +4,7 @@
 
 .dropdownContent {
     position: absolute;
-    top: 100%;
+    top: 172%;
     right: -70px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -63,4 +63,14 @@
     border-radius: 100%;
     border: 1px solid var(--pryColor);
   
+}
+@media screen and (max-width: 768px) {
+.dropdownContent {
+position: absolute;
+        top: 172%;
+        right: -70px;
+     
+
+    }
+
 }

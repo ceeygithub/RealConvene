@@ -173,7 +173,6 @@ const updateUserProfile = async (profileData, image, setUploadProgress) => {
   };
 
 
-
   const isRegularUser = () => {
     return user && !isAdmin();
   };

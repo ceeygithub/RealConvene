@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavCSS from '../styles/Navigation.module.css';
@@ -12,7 +11,7 @@ import { FiMessageSquare } from 'react-icons/fi';
 import { useAuth } from '../contexts/AuthContext'; 
 
 const Navigation = () => {
-  const { isAuthenticated, isAdmin } = useAuth(); 
+  const { isAuthenticated, isAdmin, isRegularUser } = useAuth(); 
   const [showMenu, setShowMenu] = useState(false);
 
   const handleSearch = () => {
@@ -22,20 +21,20 @@ const Navigation = () => {
 
   return (
     <nav className={NavCSS.navbar}>
-<div className={`${NavCSS.navbarContainer} ${isAdmin() ? NavCSS.leftAlign : ''}`}>
-            <div className={`nav-title ${isAdmin() ? NavCSS.adminLogo : ''}`}>
-           <img src={logoImg} alt="" className={NavCSS.logoImg} />
+      <div className={`${NavCSS.navbarContainer} ${isAdmin() ? NavCSS.leftAlign : ''}`}>
+        <div className={`nav-title ${isAdmin() ? NavCSS.adminLogo : ''}`}>
+          <img src={logoImg} alt="" className={NavCSS.logoImg} />
         </div>
         <div className={NavCSS.mobileMenuIcon} onClick={() => setShowMenu(!showMenu)}>
           <IoIosMenu />
-        </div >
+        </div>
         <div className={`${NavCSS.navbarLinks} ${showMenu ? NavCSS.showMenu : ''}`}>
           {isAuthenticated() && (
             <>
-              {/* <SearchBar onChange={handleSearch} /> */}
-              {isAdmin() ? (
-             <div className={`${NavCSS.navbarLink} ${NavCSS.adminMessage}`}>Welcome Admin</div>
-              ) : (
+              {isAdmin() && (
+                <div className={`${NavCSS.navbarLink} ${NavCSS.adminMessage}`}>Welcome Admin</div>
+              )}
+              {isRegularUser() && (
                 <>
                   <SearchBar onChange={handleSearch} />
                   <Link to="/explore" className={NavCSS.navbarLink}>
@@ -68,4 +67,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

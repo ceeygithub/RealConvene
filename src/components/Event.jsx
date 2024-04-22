@@ -1,12 +1,13 @@
 
+
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { BiUpvote } from "react-icons/bi";
 import { FaRegCommentAlt } from "react-icons/fa";
- import '../styles/Event.css'; 
+import '../styles/Event.css'; 
 
 const Event = () => {
-  const { getEvents } = useAuth();
+  const { getEvents,currentUser } = useAuth();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -21,34 +22,32 @@ const Event = () => {
 
     fetchEvents();
   }, [getEvents]);
+   const handleUpvote = () => {
+    // Implement logic to update upvote count in Firestore
+    // Example: firestore.collection('events').doc(event.id).update({ upvotes: event.upvotes + 1 });
+  };
+
+  const handleComment = () => {
+    // Implement logic to open a comment form or navigate to a comment page
+  };
 
   return (
-    <div className="container">
+    <div className="event-container">
       {events.map((event) => (
-        <div className="card-media" key={event.id}>
-          {/* media container */}
-          <div className="card-media-object-container">
-            <div className="card-media-object" style={{ backgroundImage: `url(${event.imageUrl})` }}></div>
-          </div>
-          {/* body container */}
-          <div className="card-media-body">
-            <div className="card-media-body-top">
-              <span className="subtle">{event.date}</span>
-            </div>
-            <p className="card-media-body-heading">{event.title}</p>
-            <div className="card-media-body-supporting-bottom">
-              <span className="card-media-body-supporting-bottom-text subtle">{event.location}</span>
-              {/* <span className="card-media-body-supporting-bottom-text subtle u-float-right">{event.price}</span> */}
-              {/* Upvote and comment icons */}
-              <div className="card-media-body-supporting-bottom-icons">
-                <span className="icon-with-count">
-                  <BiUpvote />
-                  <span className="count">{event.upvotes}</span>
-                </span>
-                <span className="icon-with-count">
-                  <FaRegCommentAlt />
-                  <span className="count">{event.comments}</span>
-                </span>
+        <div className="event-card" key={event.id}>
+          <div className="event-card-image" style={{ backgroundImage: `url(${event.imageUrl})` }}></div>
+          <div className="event-card-details">
+            <div className="event-card-date">{event.date}</div>
+            <h3 className="event-card-title">{event.title}</h3>
+            <p className="event-card-location">{event.location}</p>
+            <div className="event-card-icons">
+              <div className="icon-with-count" onClick={handleUpvote}>
+                <BiUpvote />
+                <span className="count">{event.upvotes}</span>
+              </div>
+              <div className="icon-with-count"  onClick={handleComment}>
+                <FaRegCommentAlt />
+                <span className="count">{event.comments}</span>
               </div>
             </div>
           </div>

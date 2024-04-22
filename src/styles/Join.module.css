@@ -26,8 +26,6 @@ img {
 }
 
 .joinBtn {
-    margin-top: 20px;
-    /* Add some spacing between the text and button */
     padding: 10px 30px;
     font-size: 1em;
     background-color: var(--pryColor);
@@ -41,7 +39,9 @@ img {
 .joinBtn:hover {
     background-color: #27ae60;
 }
-
+.joinp{
+    margin-top: 10px;
+}
 /* Responsive Styles */
 @media screen and (min-width: 768px) {
     .container {

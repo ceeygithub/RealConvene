@@ -86,33 +86,24 @@ const UserDashboard = () => {
             <h4>Today</h4>
           </div>
           <Calendar onChange={setDate} value={date} />
-          <div className={UserDashboardCss.sidebarTitle}>
-            <h4>Advertisement</h4>
-            <Link to="#">Close</Link>
-          </div>
-          <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/advertisement.png?raw=true" alt="advt" className={UserDashboardCss.sidebarAds} />
-          <div className={UserDashboardCss.sidebarTitle}>
+        
+         
+          {/* <div className={UserDashboardCss.sidebarTitle}>
             <h4>Conversation</h4>
             <Link to="#">Hide Chat</Link>
-          </div>
-          <div className={UserDashboardCss.onlineList}>
+          </div> */}
+          {/* <div className={UserDashboardCss.onlineList}>
             <div className={UserDashboardCss.online}>
               <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/member-2.png?raw=true" alt="" />
             </div>
             <p>Roy Clark</p>
-          </div>
-          <div className={UserDashboardCss.onlineList}> 
-            <div className={UserDashboardCss.online}> 
-              <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/member-3.png?raw=true" alt="" />
-            </div>
-            <p>Sieena Watson</p>
-          </div>
-          <div className={UserDashboardCss.onlineList}>
+          </div>   */}
+          {/* <div className={UserDashboardCss.onlineList}>
             <div className={UserDashboardCss.online}>
               <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/member-4.png?raw=true" alt="" />
             </div>
             <p>Ben Taylor</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

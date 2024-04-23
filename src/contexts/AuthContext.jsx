@@ -2,8 +2,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { auth, db,storage } from '../Firebase'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updateProfile } from 'firebase/auth';
-import { doc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
+import { doc, getDoc,getDocs, collection, addDoc,  updateDoc } from 'firebase/firestore';
 import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { increment, arrayUnion } from 'firebase/firestore';
 
 
 const AuthContext = React.createContext();
@@ -221,6 +222,34 @@ const getEvents = async () => {
     }
   };
 
+   const handleUpvote = async (eventId) => {
+    try {
+      const eventRef = doc(db, 'events', eventId);
+      await updateDoc(eventRef, {
+        upvotes: increment(1)
+      });
+      console.log('Upvoted successfully');
+    } catch (error) {
+      console.error('Error updating upvotes:', error);
+    }
+  };
+
+const handleComment = async (eventId, comment) => {
+  try {
+    const eventRef = doc(db, 'events', eventId);
+    const eventDoc = await getDoc(eventRef);
+    
+    if (eventDoc.exists()) {
+      const updatedComments = [...eventDoc.data().comments, comment]; // Add the new comment to the existing comments array
+      await updateDoc(eventRef, { comments: updatedComments }); // Update the comments array in the event document
+      console.log('Comment added successfully');
+    } else {
+      console.error('Event document does not exist');
+    }
+  } catch (error) {
+    console.error('Error adding comment:', error);
+  }
+};
 
   const value = {
     user,
@@ -234,6 +263,8 @@ const getEvents = async () => {
     createEventsCollection,
 getEvents ,
 updateUserProfile ,
+handleComment,
+handleUpvote,
   };
   return (
     <AuthContext.Provider value={value}>

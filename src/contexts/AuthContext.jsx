@@ -20,6 +20,7 @@ const [error, setError] = useState("");
 // eslint-disable-next-line no-unused-vars
 const [role, setRole] = useState('');
   const [user, setUser] = useState();
+  const [events, setEvents] = useState([]);
 
 
 useEffect(() => {
@@ -222,34 +223,53 @@ const getEvents = async () => {
     }
   };
 
+
    const handleUpvote = async (eventId) => {
     try {
       const eventRef = doc(db, 'events', eventId);
-      await updateDoc(eventRef, {
-        upvotes: increment(1)
-      });
+      await updateDoc(eventRef, { upvotes: increment(1) });
       console.log('Upvoted successfully');
+      
+      // Update the events state with the latest data after upvoting
+      const updatedEvents = events.map(event => {
+        if (event.id === eventId) {
+          return { ...event, upvotes: event.upvotes + 1 };
+        }
+        return event;
+      });
+      setEvents(updatedEvents);
     } catch (error) {
       console.error('Error updating upvotes:', error);
     }
   };
 
-const handleComment = async (eventId, comment) => {
-  try {
-    const eventRef = doc(db, 'events', eventId);
-    const eventDoc = await getDoc(eventRef);
-    
-    if (eventDoc.exists()) {
-      const updatedComments = [...eventDoc.data().comments, comment]; // Add the new comment to the existing comments array
-      await updateDoc(eventRef, { comments: updatedComments }); // Update the comments array in the event document
-      console.log('Comment added successfully');
-    } else {
-      console.error('Event document does not exist');
+  const handleComment = async (eventId, comment) => {
+    try {
+      const eventRef = doc(db, 'events', eventId);
+      const eventDoc = await getDoc(eventRef);
+      
+      if (eventDoc.exists()) {
+        const updatedComments = [...eventDoc.data().comments, comment];
+        await updateDoc(eventRef, { comments: updatedComments });
+        console.log('Comment added successfully');
+        
+        // Update the events state with the latest data after adding a comment
+        const updatedEvents = events.map(event => {
+          if (event.id === eventId) {
+            return { ...event, comments: updatedComments };
+          }
+          return event;
+        });
+        setEvents(updatedEvents);
+      } else {
+        console.error('Event document does not exist');
+      }
+    } catch (error) {
+      console.error('Error adding comment:', error);
     }
-  } catch (error) {
-    console.error('Error adding comment:', error);
-  }
-};
+  };
+
+
 
   const value = {
     user,

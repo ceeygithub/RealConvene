@@ -4,7 +4,7 @@ import { auth, db,storage } from '../Firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updateProfile } from 'firebase/auth';
 import { doc, getDoc,getDocs, collection, addDoc,  updateDoc } from 'firebase/firestore';
 import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { increment, arrayUnion } from 'firebase/firestore';
+import { increment} from 'firebase/firestore';
 
 
 const AuthContext = React.createContext();

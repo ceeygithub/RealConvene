@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -13,6 +13,7 @@ import DisplayPicture from './pages/DisplayPicture';
 
 
 function App() {
+  const [selectedInterests, setSelectedInterests] = useState([]);
   return (
   
       < BrowserRouter>
@@ -23,8 +24,11 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/displaypicture" element={<DisplayPicture />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/userDashboard" element={<UserDashboard />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
+          {/* <Route path="/userDashboard" element={<UserDashboard />} /> */}
+        <Route path="/profile" element={<Profile setSelectedInterests={setSelectedInterests} />} />
+        {/* Pass selectedInterests to UserDashboard */}
+        <Route path="/userDashboard" element={<UserDashboard selectedInterests={selectedInterests} />} />
           <Route path="/adminDashboard" element={<AdminDashboard />} />
         
           <Route path="*" element={<NotFound />} />

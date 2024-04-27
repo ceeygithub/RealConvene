@@ -202,7 +202,8 @@ padding-top: 5rem;
 
 .error-message {
     color: red;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+    padding-top: 20px;
 }
 
 .submit-button {

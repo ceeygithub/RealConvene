@@ -11,7 +11,8 @@ import Event from '../components/Event';
 import Calendar from 'react-calendar';
 import { useAuth } from '../contexts/AuthContext';
 
-const UserDashboard = () => {
+const UserDashboard = ({ selectedInterests }) => {
+   console.log(selectedInterests);
   const [date, setDate] = useState(new Date());
   // eslint-disable-next-line no-unused-vars
   const [events, setEvents] = useState([]);
@@ -69,10 +70,16 @@ const UserDashboard = () => {
           </div>
           <div className={UserDashboardCss.shortcutLinks}> 
             <p>Your Interests</p>
-            <Link to="#"><img src="https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />Health & Wellbeing</Link>
+            {/* <Link to="#"><img src="https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />Health & Wellbeing</Link>
             <Link to="#"><img src="https://images.pexels.com/photos/4440715/pexels-photo-4440715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />Identity & Language</Link>
             <Link to="#"><img src="https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> Technology</Link>
-            <Link to="#"><img src="https://images.pexels.com/photos/2041627/pexels-photo-2041627.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />Career & Business</Link>
+            <Link to="#"><img src="https://images.pexels.com/photos/2041627/pexels-photo-2041627.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />Career & Business</Link> */}
+            {selectedInterests.map((interest, index) => (
+              <Link key={index} to="#">
+                <img src={interest.image} alt={interest.name} />
+                {interest.name}
+              </Link>
+            ))}
           </div>
         </div>
         <div className={UserDashboardCss.mainContent}>
@@ -87,23 +94,6 @@ const UserDashboard = () => {
           </div>
           <Calendar onChange={setDate} value={date} />
         
-         
-          {/* <div className={UserDashboardCss.sidebarTitle}>
-            <h4>Conversation</h4>
-            <Link to="#">Hide Chat</Link>
-          </div> */}
-          {/* <div className={UserDashboardCss.onlineList}>
-            <div className={UserDashboardCss.online}>
-              <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/member-2.png?raw=true" alt="" />
-            </div>
-            <p>Roy Clark</p>
-          </div>   */}
-          {/* <div className={UserDashboardCss.onlineList}>
-            <div className={UserDashboardCss.online}>
-              <img src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/member-4.png?raw=true" alt="" />
-            </div>
-            <p>Ben Taylor</p>
-          </div> */}
         </div>
       </div>
     </>
@@ -111,4 +101,5 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+
 

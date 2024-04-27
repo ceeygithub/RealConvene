@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
@@ -8,10 +8,12 @@ import { IoLockClosed } from 'react-icons/io5';
 import SignupSvg from '../assets/Sign up-bro.svg';
 import '../styles/SignIn.css';
 import { useAuth } from '../contexts/AuthContext';
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { signup } = useAuth();
+     const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -36,6 +38,9 @@ const SignUp = () => {
       }
     },
   });
+    const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   return (
     <div className="LoginPageContainer">
@@ -70,12 +75,19 @@ const SignUp = () => {
                   <span>Password*</span>
                 </label>
                 <input
-                  type="password"
-                  className="input"
-                  id="password"
-                  placeholder="Enter your Password"
-                  {...formik.getFieldProps('password')}
-                />
+  type={showPassword ? "text" : "password"}
+  className="input"
+  id="password"
+  name="password"
+  placeholder="Enter your Password"
+  {...formik.getFieldProps('password')}
+  required
+/>
+                 {showPassword ? (
+                     <FaRegEye className="eyeicon" alt="Show Password Icon" onClick={togglePasswordVisibility} />
+                  ) : (
+                     <FaRegEyeSlash className="eyeicon" alt="Hide Password Icon" onClick={togglePasswordVisibility} />
+                  )}
                 {formik.touched.password && formik.errors.password && <div className="error-message">{formik.errors.password}</div>}
               </div>
 

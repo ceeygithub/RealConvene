@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { auth, db,storage } from '../Firebase'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updateProfile } from 'firebase/auth';
 import { doc, getDoc,getDocs, collection, addDoc,  updateDoc } from 'firebase/firestore';
-import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import {  ref, uploadBytes, getDownloadURL,uploadBytesResumable } from 'firebase/storage';
 import { increment} from 'firebase/firestore';
 
 
@@ -21,6 +21,7 @@ const [error, setError] = useState("");
 const [role, setRole] = useState('');
   const [user, setUser] = useState();
   const [events, setEvents] = useState([]);
+   const [uploadProgress, setUploadProgress] = useState(0);
 
 
 useEffect(() => {
@@ -107,50 +108,51 @@ useEffect(() => {
 };
 
 
-const updateUserProfile = async (profileData, image, setUploadProgress) => {
-  try {
-    if (!image) {
-      console.error('Image is not selected.');
-      return;
+const updateUserProfile = async (profileData, image) => {
+    try {
+      if (!image) {
+        console.error('Image is not selected.');
+        return;
+      }
+
+      // Update user profile data
+      await updateProfile(user, profileData);
+
+      // Upload image to Firebase Storage
+      const storageRef = ref(storage, `userImages/${user.uid}/${image.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+
+      // Observe state changes, errors, and completion of the upload.
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          // Get the upload progress
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setUploadProgress(progress );
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          console.error('Error uploading image:', error);
+        }
+      );
+
+      // Wait for the upload task to complete
+      await uploadTask;
+
+      // Upload completed successfully, get the download URL of the image
+      const downloadURL = await getDownloadURL(storageRef);
+
+      // Update user's profile data with the image URL
+      await updateProfile(user, { ...profileData, photoURL: downloadURL });
+
+      // Update user state
+      setUser(auth.currentUser);
+      console.log('User profile and display picture updated successfully:', auth.currentUser);
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      throw error;
     }
+  };
 
-    // Update user profile data
-    await updateProfile(user, profileData);
-
-    // Fetch the updated user data
-    const updatedUser = auth.currentUser;
-
-    // Upload image to Firebase Storage
-    const storageRef = ref(storage, `userImages/${user.uid}/${image.name}`);
-    const uploadTask = uploadBytes(storageRef, image);
-
-    // Observe state changes, errors, and completion of the upload.
-    uploadTask
-      .then(snapshot => {
-        // Get the upload progress
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadProgress(progress);
-        console.log('Upload is ' + progress + '% done');
-      })
-      .catch(error => {
-        console.error('Error uploading image:', error);
-      });
-
-    // Upload completed successfully, get the download URL of the image
-    const snapshot = await uploadTask;
-    const downloadURL = await getDownloadURL(snapshot.ref);
-    
-    // Update user's profile data with the image URL
-    await updateProfile(user, { ...profileData, photoURL: downloadURL });
-
-    // Update user state
-    setUser(auth.currentUser);
-    console.log('User profile and display picture updated successfully:', updatedUser);
-  } catch (error) {
-    console.error('Error updating user profile:', error);
-    throw error;
-  }
-};
 
 
   const logout = async () => {
@@ -285,6 +287,8 @@ getEvents ,
 updateUserProfile ,
 handleComment,
 handleUpvote,
+uploadProgress,
+ setUploadProgress,
   };
   return (
     <AuthContext.Provider value={value}>

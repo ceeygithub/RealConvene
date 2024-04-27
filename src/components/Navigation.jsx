@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavCSS from '../styles/Navigation.module.css';
 import logoImg from '../assets/Group 1.png';
@@ -13,6 +13,16 @@ import { useAuth } from '../contexts/AuthContext';
 const Navigation = () => {
   const { isAuthenticated, isAdmin, isRegularUser } = useAuth(); 
   const [showMenu, setShowMenu] = useState(false);
+  // eslint-disable-next-line
+    const [userSignedUp, setUserSignedUp] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is signed up
+    if (isAuthenticated()) {
+      setUserSignedUp(true);
+    }
+  }, [isAuthenticated]);
+
 
   const handleSearch = () => {
     // Implement your search logic here

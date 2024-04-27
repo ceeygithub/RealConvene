@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileCSS from '../styles/Profile.module.css';
-// import Button from '../components/button/Button';
+
 
 const interests = [
     {
@@ -86,6 +86,7 @@ const Profile = () => {
 
     const handleClick = () => {
         if (selectedInterests.length > 0) {
+              console.log('Selected Interests:', selectedInterests);
             // Navigate only if at least one interest is selected
             navigate('/userDashboard', { state: { selectedInterests } });
         }

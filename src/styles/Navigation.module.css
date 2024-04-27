@@ -73,7 +73,7 @@ width: 150px;
 
 .signin {
     width: 100%;
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 20px;
     font-size: 1.5rem;
     color: white;

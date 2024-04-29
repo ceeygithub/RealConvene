@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom'; 
 import UserDashboardCss from '../styles/UserDashboard.module.css';
@@ -11,23 +9,27 @@ import Event from '../components/Event';
 import Calendar from 'react-calendar';
 import { useAuth } from '../contexts/AuthContext';
 
-const UserDashboard = ({ selectedInterests }) => {
-   console.log(selectedInterests);
+const UserDashboard = () => {
   const [date, setDate] = useState(new Date());
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line 
   const [events, setEvents] = useState([]);
-  const [page, setPage] = useState(1); // Current page
-  const [totalPages, setTotalPages] = useState(1); // Define totalPages here
-  const { getEvents } = useAuth(); 
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const { getEvents, selectedInterests ,setSelectedInterests} = useAuth(); 
+
+ useEffect(() => {
+  const storedInterests = localStorage.getItem('selectedInterests');
+  if (storedInterests) {
+    setSelectedInterests(JSON.parse(storedInterests));
+  }
+}, [setSelectedInterests]);
+
 
   const fetchEvents = useCallback(async () => {
     try {
-      // Fetch events data using getEvents function
       const events = await getEvents();
       console.log('Events:', events);
-      // Assuming your API returns the total number of pages, set the totalPages state
       setTotalPages(events.totalPages);
-      // Update events state with the fetched data
       setEvents(prevEvents => [...prevEvents, ...events]);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -39,9 +41,7 @@ const UserDashboard = ({ selectedInterests }) => {
       window.innerHeight + document.documentElement.scrollTop ===
       document.documentElement.offsetHeight
     ) {
-      // User has scrolled to the bottom
       if (page < totalPages) {
-        // Fetch next page of events
         setPage(prevPage => prevPage + 1);
       }
     }
@@ -59,6 +59,7 @@ const UserDashboard = ({ selectedInterests }) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [fetchEvents, handleScroll]);
+  
   return (
     <>
       <div className={UserDashboardCss.container}> 
@@ -70,10 +71,6 @@ const UserDashboard = ({ selectedInterests }) => {
           </div>
           <div className={UserDashboardCss.shortcutLinks}> 
             <p>Your Interests</p>
-            {/* <Link to="#"><img src="https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />Health & Wellbeing</Link>
-            <Link to="#"><img src="https://images.pexels.com/photos/4440715/pexels-photo-4440715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />Identity & Language</Link>
-            <Link to="#"><img src="https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> Technology</Link>
-            <Link to="#"><img src="https://images.pexels.com/photos/2041627/pexels-photo-2041627.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />Career & Business</Link> */}
             {selectedInterests.map((interest, index) => (
               <Link key={index} to="#">
                 <img src={interest.image} alt={interest.name} />
@@ -93,7 +90,6 @@ const UserDashboard = ({ selectedInterests }) => {
             <h4>Today</h4>
           </div>
           <Calendar onChange={setDate} value={date} />
-        
         </div>
       </div>
     </>
@@ -101,5 +97,3 @@ const UserDashboard = ({ selectedInterests }) => {
 };
 
 export default UserDashboard;
-
-

@@ -15,42 +15,119 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 
-// eslint-disable-next-line no-unused-vars
 const [error, setError] = useState("");
-// eslint-disable-next-line no-unused-vars
 const [role, setRole] = useState('');
   const [user, setUser] = useState();
   const [events, setEvents] = useState([]);
    const [uploadProgress, setUploadProgress] = useState(0);
+    const [selectedInterests, setSelectedInterests] = useState([]);
 
 
+    
+const interests = [
+    {
+        name: 'Art & Culture',
+        image: 'https://images.pexels.com/photos/2372978/pexels-photo-2372978.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+        name: 'Career & Business',
+        image: 'https://images.pexels.com/photos/2041627/pexels-photo-2041627.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+        name: 'Community & Environment',
+        image: 'https://images.pexels.com/photos/3387159/pexels-photo-3387159.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+    {
+        name: 'Science & Education',
+        image: 'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+
+    {
+        name: 'Games',
+        image: 'https://images.pexels.com/photos/1543766/pexels-photo-1543766.jpeg?auto=compress&cs=tinysrgb&w=400',
+    },
+
+    {
+        name: 'Health & Wellbeing',
+        image: 'https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    },
+
+    {
+        name: 'Hobbies & Passion',
+        image: 'https://images.pexels.com/photos/10030340/pexels-photo-10030340.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+
+    {
+        name: 'Identity & Language',
+        image: 'https://images.pexels.com/photos/4440715/pexels-photo-4440715.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    },
+
+    {
+        name: 'Movements & Politics',
+        image: 'https://images.pexels.com/photos/4664301/pexels-photo-4664301.jpeg?auto=compress&cs=tinysrgb&w=600',
+    },
+
+    {
+        name: 'Music & Dancing',
+        image: 'https://images.pexels.com/photos/3971985/pexels-photo-3971985.jpeg?auto=compress&cs=tinysrgb&w=400',
+    },
+    {
+        name: 'Sports & Fitness',
+        image: 'https://images.pexels.com/photos/848618/pexels-photo-848618.jpeg?auto=compress&cs=tinysrgb&w=400',
+    },
+    {
+        name: 'Technology',
+        image: 'https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    },
+];
+
+
+// useEffect(() => {
+//   const unsubscribe = onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       setUser(user);
+//       console.log("User logged in:", user);
+//       const userRef = doc(db, 'users', user.uid);
+//       getDoc(userRef)
+//         .then((userSnapshot) => {
+//           if (userSnapshot.exists()) {
+//             const userData = userSnapshot.data();
+//             setRole(userData.role);
+//           } else {
+//             console.error("User document does not exist");
+//             setError("User document does not exist");
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("Error fetching user document:", error);
+//           setError("Error fetching user document");
+//         });
+//     } else {
+//       setUser(null);
+//       setRole('');
+//       console.log("User logged out");
+//     }
+//   });
+
+//   return () => unsubscribe();
+// }, []);
 useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        console.log("User logged in:", user);
-        const userRef = doc(db, 'users', user.uid);
-        const userSnapshot = await getDoc(userRef);
-        if (userSnapshot.exists()) {
-          const userData = userSnapshot.data();
-          setRole(userData.role); 
-        } else {
-         
-          console.error("User document does not exist");
-          setError("User document does not exist");
-     
-        }
-      } else {
-        setUser(null);
-        setRole(''); 
-        console.log("User logged out");
-      }
-    });
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+           setUser(user);
+            const uid = user.uid;
+             console.log("uid", uid)
+      console.log("User logged in:", user);
+   
+    } else {
+      setUser(null);
+      console.log("User logged out");
+    }
 
-    return () => unsubscribe();
-  }, []);
+  });
 
-
+  return () => unsubscribe();
+}, []);
 
   const signup = async (email, password) => {
   setError(""); // Clear any previous error messages
@@ -289,6 +366,12 @@ handleComment,
 handleUpvote,
 uploadProgress,
  setUploadProgress,
+ selectedInterests,
+  setSelectedInterests,
+   interests,
+       role,
+    error,
+
   };
   return (
     <AuthContext.Provider value={value}>

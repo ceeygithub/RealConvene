@@ -61,30 +61,7 @@ const AdminDashboard = () => {
   });
   const renderContent = (setFieldValue) => {
     switch (selectedMenu) {
-      // case 'users':
-      //   return (
-      //     <div className="card">
-      //       <div className="title">Users</div>
-      //       <div className="content">
-      //         <div className="container-fluid">
-      //           <div className="row">
-      //             <div className="col-sm-6">
-      //               <div className="form-group">
-      //                 <label htmlFor="">Name</label>
-      //                 <input type="text" className="form-control" />
-      //               </div>
-      //             </div>
-      //             <div className="col-sm-6">
-      //               <div className="form-group">
-      //                 <label htmlFor="">Name</label>
-      //                 <input type="text" className="form-control" />
-      //               </div>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   );
+
       case 'createMeetup':
         return (
           <div className="form-container">
@@ -133,8 +110,9 @@ const AdminDashboard = () => {
   {/* Image upload field */}
   <div className="form-group">
     <input
-      type="file"
+       type="file"
       name="image"
+      accept="image/*"
       onChange={(event) => {
         setFieldValue("image", event.currentTarget.files[0]);
       }}
@@ -155,16 +133,7 @@ const AdminDashboard = () => {
         );
           case 'deletemeetup':
         return (
-    //      <div>
-    //   <h2>Delete Event</h2>
-    //   <select value={selectedEvent ? selectedEvent.id : ''} onChange={(e) => setSelectedEvent(events.find(event => event.id === e.target.value))}>
-    //     <option value="">Select an event to delete</option>
-    //     {events.map((event) => (
-    //       <option key={event.id} value={event.id}>{event.title}</option>
-    //     ))}
-    //   </select>
-    //   <button onClick={handleDeleteEvent} disabled={!selectedEvent}>Delete Event</button>
-    // </div>
+   
 
      <div className="admin-dashboard-container">
       <h2>Delete Event</h2>
@@ -187,15 +156,7 @@ const AdminDashboard = () => {
       </button>
     </div>
         );
-      // case 'settings':
-      //   return (
-      //     <div>
-      //       {/* UI for settings */}
-      //       SETTINGS
-      //     </div>
-      //   );
-   
-  
+
       default:
         return null;
     }
@@ -207,34 +168,19 @@ const AdminDashboard = () => {
         <div className="left-menu">
      
           <ul>
-            {/* <li className={selectedMenu === 'users' ? 'active' : ''}>
-              <Link to="#" className='link' onClick={() => handleMenuClick('users')}>
-                <FaUsers />
-                <span>Users</span>
-              </Link>
-            </li> */}
             <li className={selectedMenu === 'createMeetup' ? 'active' : ''}>
               <Link to="#" className='link' onClick={() => handleMenuClick('createMeetup')}>
                 <IoCreateOutline />
                 <span>Create meetup</span>
               </Link>
             </li>
-           
-            
    <li className={selectedMenu === 'deletemeetup' ? 'active' : ''}>
               <Link to="#" className='link' onClick={() => handleMenuClick('deletemeetup')}>
   <MdDeleteOutline />
                 <span>Delete Event </span>
               </Link>
             </li>
-        
-     {/* <li className={selectedMenu === 'settings' ? 'active' : ''}>
-              <Link to="#" className='link' onClick={() => handleMenuClick('settings')}>
-                <IoSettingsOutline />
-                <span>Settings</span>
-              </Link>
-            </li> */}
- 
+
           </ul>
         </div>
       </div>

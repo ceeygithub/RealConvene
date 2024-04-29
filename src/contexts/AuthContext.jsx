@@ -1,7 +1,7 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import { auth, db,storage } from '../Firebase'; 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updateProfile } from 'firebase/auth';
+import {  onAuthStateChanged,updateProfile } from 'firebase/auth';
 import { doc, getDoc,getDocs, collection, addDoc,  updateDoc } from 'firebase/firestore';
 import {  ref, uploadBytes, getDownloadURL,uploadBytesResumable } from 'firebase/storage';
 import { increment} from 'firebase/firestore';
@@ -15,8 +15,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 
-const [error, setError] = useState("");
-const [role, setRole] = useState('');
   const [user, setUser] = useState();
   const [events, setEvents] = useState([]);
    const [uploadProgress, setUploadProgress] = useState(0);
@@ -82,41 +80,11 @@ const interests = [
 ];
 
 
-// useEffect(() => {
-//   const unsubscribe = onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       setUser(user);
-//       console.log("User logged in:", user);
-//       const userRef = doc(db, 'users', user.uid);
-//       getDoc(userRef)
-//         .then((userSnapshot) => {
-//           if (userSnapshot.exists()) {
-//             const userData = userSnapshot.data();
-//             setRole(userData.role);
-//           } else {
-//             console.error("User document does not exist");
-//             setError("User document does not exist");
-//           }
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching user document:", error);
-//           setError("Error fetching user document");
-//         });
-//     } else {
-//       setUser(null);
-//       setRole('');
-//       console.log("User logged out");
-//     }
-//   });
-
-//   return () => unsubscribe();
-// }, []);
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (user) => {
     if (user) {
            setUser(user);
-            const uid = user.uid;
-             console.log("uid", uid)
+       
       console.log("User logged in:", user);
    
     } else {
@@ -129,60 +97,6 @@ useEffect(() => {
   return () => unsubscribe();
 }, []);
 
-  const signup = async (email, password) => {
-  setError(""); // Clear any previous error messages
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-    // Set up profileData object
-    const profileData = {
-      userId: userCredential.user.uid,
-      email: email,
-      role: 'regular',
-    };
-
-    // Add user data to Firestore
-    const userRef = await addDoc(collection(db, 'users'), profileData);
-
-    console.log("Document written with ID:", userRef.id);
-  } catch (error) {
-    if (error.code === "auth/email-already-in-use") {
-      setError("Email already in use. Please try another email.");
-    } else {
-      setError(error.message);
-    }
-  }
-};
-
- const login = async (email, password) => {
-  setError(""); // Clear any previous error messages
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    
-    const userRef = doc(db, 'users', userCredential.user.uid);
-    const userSnapshot = await getDoc(userRef);
-
-    if (userSnapshot.exists()) {
-      const userData = userSnapshot.data();
-      setRole(userData.role);
-      console.log('User logged in successfully:', userData);
-      return { userCredential, role: userData.role }; // Return user credential and role
-    } else {
-      console.error("User document does not exist");
-      setError("User document does not exist");
-      return null;
-    }
-  } catch (error) {
-    if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
-      setError("Invalid email or password.");
-    } else {
-      setError(error.message);
-    }
-    return null;
-  }
-};
 
 
 const updateUserProfile = async (profileData, image) => {
@@ -229,8 +143,6 @@ const updateUserProfile = async (profileData, image) => {
       throw error;
     }
   };
-
-
 
   const logout = async () => {
     try {
@@ -280,7 +192,8 @@ const createEventsCollection = async (values) => {
       title: values.title || '',
       date: values.date || '',
       location: values.location || '',
-      imageUrl: imageUrl || '', // Store the URL of the uploaded image
+      imageUrl: imageUrl || '', 
+        comments: [],
     });
 
     console.log('Event added to the "events" collection:', values);
@@ -349,11 +262,8 @@ const getEvents = async () => {
   };
 
 
-
   const value = {
     user,
-    login,
-    signup,
     logout,
     resetPassword,
     isAdmin,
@@ -369,8 +279,6 @@ uploadProgress,
  selectedInterests,
   setSelectedInterests,
    interests,
-       role,
-    error,
 
   };
   return (

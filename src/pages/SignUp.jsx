@@ -7,13 +7,14 @@ import { IoMdMail } from 'react-icons/io';
 import { IoLockClosed } from 'react-icons/io5';
 import SignupSvg from '../assets/Sign up-bro.svg';
 import '../styles/SignIn.css';
-import { useAuth } from '../contexts/AuthContext';
+import { auth, db } from '../Firebase'; // Import Firebase auth and db
+import { createUserWithEmailAndPassword} from 'firebase/auth';
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { collection, addDoc} from 'firebase/firestore';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
-     const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -28,17 +29,31 @@ const SignUp = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await signup(values.email, values.password).then(
-  navigate('/displaypicture')
-        );
-      
+        // Sign up the user directly using createUserWithEmailAndPassword
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+
+        // Set up profileData object
+        const profileData = {
+          userId: userCredential.user.uid,
+          email: values.email,
+          role: 'regular',
+        };
+
+        // Add user data to Firestore
+        const userRef = await addDoc(collection(db, 'users'), profileData);
+
+        console.log("Document written with ID:", userRef.id);
+        
+        // Navigate to the next page after successful sign-up
+        navigate('/displaypicture');
       } catch (error) {
         console.error('Error during signup:', error.message);
         // Handle error or set formik error message accordingly
       }
     },
   });
-    const togglePasswordVisibility = () => {
+
+  const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
@@ -55,7 +70,6 @@ const SignUp = () => {
             <form onSubmit={formik.handleSubmit}>
               <div className="inputContainer">
                 <label className="label" htmlFor="emailAddress">
-                  {/* Use the imported icon components */}
                   <IoMdMail className="labelIcon" alt="labelIcon" />
                   <span>Email Address*</span>
                 </label>
@@ -70,19 +84,18 @@ const SignUp = () => {
               </div>
               <div className="inputContainer">
                 <label className="label" htmlFor="password">
-                  {/* Use the imported icon components */}
                   <IoLockClosed className="labelIcon" alt="Password Icon" />
                   <span>Password*</span>
                 </label>
                 <input
-  type={showPassword ? "text" : "password"}
-  className="input"
-  id="password"
-  name="password"
-  placeholder="Enter your Password"
-  {...formik.getFieldProps('password')}
-  required
-/>
+                  type={showPassword ? "text" : "password"}
+                  className="input"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your Password"
+                  {...formik.getFieldProps('password')}
+                  required
+                />
                  {showPassword ? (
                      <FaRegEye className="eyeicon" alt="Show Password Icon" onClick={togglePasswordVisibility} />
                   ) : (
@@ -107,3 +120,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+

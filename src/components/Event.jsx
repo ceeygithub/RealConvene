@@ -7,7 +7,7 @@ import '../styles/Event.css';
 import Modal from './Submitmodal';
 
 const Event = () => {
-  const { getEvents, handleUpvote, handleComment } = useAuth();
+  const { getEvents, handleUpvote } = useAuth();
   const [events, setEvents] = useState([]);
   const [selectedEventId, setSelectedEventId] = useState('');
 
@@ -60,8 +60,7 @@ const Event = () => {
         <Modal
           isOpen={true}
           onClose={handleCloseModal}
-          onSubmit={(comment) => handleComment(selectedEventId, comment)}
-          event={events.find(event => event.id === selectedEventId)} // Pass the selected event object to the modal
+          event={events.find(event => event.id === selectedEventId)} 
         />
       )}
     </div>
